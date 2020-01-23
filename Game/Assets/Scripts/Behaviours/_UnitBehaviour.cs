@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Library.Models.Units;
+using Library.Models.Interfaces;
 
 public class _UnitBehaviour : MonoBehaviour, _ModelInterface
 {
