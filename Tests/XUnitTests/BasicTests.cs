@@ -1,7 +1,7 @@
 using System;
 using Xunit;
-using Library.Models.Units;
-using Library.General.Data;
+using Domain.Models.Units;
+using Domain.General.Data;
 
 namespace XUnitTests
 {

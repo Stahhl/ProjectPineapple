@@ -271,6 +271,9 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
+    <Reference Include="Domain">
+      <HintPath>C:/Utveckling/ProjectPineapple/Game/Assets/Library/netcoreapp2.0/Domain.dll</HintPath>
+    </Reference>
     <Reference Include="Library">
       <HintPath>C:/Utveckling/ProjectPineapple/Game/Assets/Library/netcoreapp2.0/Library.dll</HintPath>
     </Reference>

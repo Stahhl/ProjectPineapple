@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Library.Models.Units;
-using Library.Models.Interfaces;
+using Domain.Models.Units;
+using Domain.Models.Interfaces;
 
 public class _UnitBehaviour : MonoBehaviour, _ModelInterface
 {
