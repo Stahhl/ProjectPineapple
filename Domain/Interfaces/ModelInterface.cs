@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Domain.Models.Interfaces
+namespace Domain.Interfaces
 {
-    public interface _ModelInterface
+    public interface ModelInterface
     {
         bool HasChanged { get; }
         bool IsInitialized { get; }

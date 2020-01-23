@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Domain.Models.Units;
-using Domain.Models.Interfaces;
+using Domain.Interfaces;
 
-public class _UnitBehaviour : MonoBehaviour, _ModelInterface
+public class UnitBehaviour : MonoBehaviour, ModelInterface
 {
     //Unique
-    public _UnitModel MyUnit { get; private set; }
+    public Unit MyUnit { get; private set; }
 
     //Interface
     public bool HasChanged { get; private set; }
@@ -21,7 +21,7 @@ public class _UnitBehaviour : MonoBehaviour, _ModelInterface
     private void Start()
     {
         Debug.Log("Start");
-        Initialize(new Peon());
+        Initialize(new Unit());
     }
     private void Update()
     {
@@ -40,7 +40,7 @@ public class _UnitBehaviour : MonoBehaviour, _ModelInterface
                 throw new SingletonException();
 
             IsInitialized = true;
-            MyUnit = (_UnitModel)t;
+            MyUnit = (Unit)t;
         }
         catch(System.Exception e)
         {
@@ -55,7 +55,7 @@ public class _UnitBehaviour : MonoBehaviour, _ModelInterface
 
     public void UpdateMe()
     {
-        this.Name = MyUnit.MyName;
+        this.Name = MyUnit.Name;
         this.Health = MyUnit.HealthPoints;
         this.ActionPoints = MyUnit.ActionPoints;
 

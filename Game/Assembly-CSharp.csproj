@@ -63,7 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Behaviours\_UnitBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Behaviours\UnitBehaviour.cs" />
     <Compile Include="Assets\Scripts\System\Exceptions\OriginalExceptions.cs" />
     <Compile Include="Assets\Scripts\System\Test\HelloWorld.cs" />
     <Compile Include="Assets\Scripts\System\Test\submoduletest.cs" />
@@ -272,10 +272,7 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Domain">
-      <HintPath>C:/Utveckling/ProjectPineapple/Game/Assets/Library/netcoreapp2.0/Domain.dll</HintPath>
-    </Reference>
-    <Reference Include="Library">
-      <HintPath>C:/Utveckling/ProjectPineapple/Game/Assets/Library/netcoreapp2.0/Library.dll</HintPath>
+      <HintPath>C:/Utveckling/ProjectPineapple/Game/Assets/Domain/netcoreapp2.0/Domain.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.18f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

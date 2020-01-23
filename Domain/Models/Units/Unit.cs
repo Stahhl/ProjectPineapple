@@ -1,20 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Domain.Models.Interfaces;
+using Domain.Interfaces;
+using Domain.General.Data;
 
 namespace Domain.Models.Units
 {
-    public abstract class _UnitModel : _ModelInterface
+    public class Unit : ModelInterface
     {
+        public Unit()
+        {
+            Name = "Peon";
+            HealthPoints = Values.BaseHealthPoints;
+            ActionPoints = Values.BaseActionPoints;
+        }
+
         public bool HasChanged { get; private set; } = true;
         public bool IsInitialized { get; private set; }
 
-        public string MyId { get; protected set; }
-        public string MyName { get; protected set; }
+        public string Id { get; private set; }
+        public string Name { get; private set; }
 
-        public int HealthPoints { get; protected set; }
-        public int ActionPoints { get; protected set; }
+        public int HealthPoints { get; private set; }
+        public int ActionPoints { get; private set; }
 
         public void AdjustActionPoints(int value, bool isNegative)
         {

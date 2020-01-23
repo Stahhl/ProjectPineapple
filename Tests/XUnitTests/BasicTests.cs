@@ -10,8 +10,9 @@ namespace XUnitTests
         [Fact]
         public void PeonTest()
         {
-            var peon = new Peon();
+            var peon = new Unit();
 
+            Assert.Equal("Peon", peon.Name);
             Assert.Equal(Values.BaseHealthPoints, peon.HealthPoints);
             Assert.Equal(Values.BaseActionPoints, peon.ActionPoints);
         }
