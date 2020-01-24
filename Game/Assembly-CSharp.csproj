@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{DDFBC18F-9396-3137-9CFE-DEB2CDB74636}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -64,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Behaviours\UnitBehaviour.cs" />
-    <Compile Include="Assets\Scripts\System\Exceptions\OriginalExceptions.cs" />
     <Compile Include="Assets\Scripts\System\Test\HelloWorld.cs" />
     <Compile Include="Assets\Scripts\System\Test\submoduletest.cs" />
     <Reference Include="Unity.Timeline.Editor">

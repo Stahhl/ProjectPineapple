@@ -8,8 +8,4 @@
     <OutputPath>..\Game\Assets\Domain</OutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="General\Networking\" />
-  </ItemGroup>
-
 </Project>

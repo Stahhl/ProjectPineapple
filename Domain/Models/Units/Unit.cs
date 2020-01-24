@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Domain.Interfaces;
 using Domain.General.Data;
+using System.Runtime.Serialization;
 
 namespace Domain.Models.Units
 {
@@ -14,15 +15,22 @@ namespace Domain.Models.Units
             HealthPoints = Values.BaseHealthPoints;
             ActionPoints = Values.BaseActionPoints;
         }
+        public Unit(SerializationInfo info)
+        {
+            Id = info.GetString(nameof(Id));
+            Name = info.GetString(nameof(Name));
+            HealthPoints = info.GetInt32(nameof(HealthPoints));
+            ActionPoints = info.GetInt32(nameof(ActionPoints));
+        }
 
-        public bool HasChanged { get; private set; } = true;
-        public bool IsInitialized { get; private set; }
+        public bool HasChanged { get; protected set; } = true;
+        public bool IsInitialized { get; protected set; }
 
-        public string Id { get; private set; }
-        public string Name { get; private set; }
+        public string Id { get; protected set; }
+        public string Name { get; protected set; }
 
-        public int HealthPoints { get; private set; }
-        public int ActionPoints { get; private set; }
+        public int HealthPoints { get; protected set; }
+        public int ActionPoints { get; protected set; }
 
         public void AdjustActionPoints(int value, bool isNegative)
         {

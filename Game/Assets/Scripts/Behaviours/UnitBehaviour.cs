@@ -36,8 +36,8 @@ public class UnitBehaviour : MonoBehaviour, ModelInterface
     {
         try
         {
-            if (IsInitialized == true || MyUnit != null)
-                throw new SingletonException();
+            //if (IsInitialized == true || MyUnit != null)
+            //    throw new SingletonException();
 
             IsInitialized = true;
             MyUnit = (Unit)t;
