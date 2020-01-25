@@ -1,1 +1,0 @@
-21:07:22.919 > DEBUG > CanWriteTest
