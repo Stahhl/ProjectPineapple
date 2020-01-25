@@ -21,6 +21,7 @@ namespace Domain.General.Serialization.Surrogates
         public object SetObjectData(object obj, SerializationInfo info, StreamingContext context, ISurrogateSelector selector)
         {
             return new Unit(info);
+            //return new Unit();
         }
     }
 }
