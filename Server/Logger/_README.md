@@ -1,0 +1,1 @@
+I'm just an empty file so git will track this folder but not the txt files in it.
