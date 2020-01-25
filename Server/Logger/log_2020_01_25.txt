@@ -1,1 +1,1 @@
-20:57:41.820 > DEBUG > CanWriteTest
+21:00:59.895 > DEBUG > CanWriteTest
