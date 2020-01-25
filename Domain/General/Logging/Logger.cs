@@ -25,7 +25,7 @@ namespace Domain.General.Logging
             string time = DateTime.Now.ToString("HH:mm:ss.fff");
             string cat = isError == true ? "ERROR" : "DEBUG";
 
-            string path = $"C:/Utveckling/ProjectPineapple/Server/Logs/log_{date}.txt";
+            string path = $"C:/Utveckling/ProjectPineapple/Server/Logger/log_{date}.txt";
 
             using (StreamWriter sw = File.AppendText(path))
             {
