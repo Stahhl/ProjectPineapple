@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System;
 using PineappleLib.Logging;
 using PineappleLib.General.Exceptions;
+using PineappleLib.Enums;
 
 namespace PineappleLib.Networking
 {
@@ -37,7 +38,7 @@ namespace PineappleLib.Networking
 
 
             if (instance != null || (instance != null && instance != this))
-                Logger.HandleException(new SingletonException(), true);
+                PineappleLogger.HandleException(new SingletonException(), true);
 
 
             instance = this;
@@ -112,7 +113,7 @@ namespace PineappleLib.Networking
                 }
                 catch (Exception e)
                 {
-                    Logger.HandleException(e, false);
+                    PineappleLogger.HandleException(e, false);
                 }
 
             }
@@ -244,7 +245,7 @@ namespace PineappleLib.Networking
                 tcp.socket.Close();
                 //udp.socket.Close();
 
-                Logger.Log("Disconnected from server.", false);
+                PineappleLogger.PineappleLog(LogType.DEBUG, "Disconnected from server.");
             }
         }
 

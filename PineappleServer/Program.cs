@@ -20,7 +20,7 @@ namespace Server
             }
             catch (Exception e)
             {
-                Logger.HandleException(e, false);
+                PineappleLogger.HandleException(e, false);
             }
 
             Console.ReadKey();

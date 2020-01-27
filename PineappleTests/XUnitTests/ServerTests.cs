@@ -18,7 +18,6 @@ namespace XUnitTests
             Task task = Task.Run(() => server.Start(5, 55555));
 
             task.Wait();
-            server.Stop();
         }
         [Fact]
         public async Task ConnectToServerTest()
@@ -28,8 +27,6 @@ namespace XUnitTests
             new ClientLocal().Init();
 
             Assert.Null(await Record.ExceptionAsync(() => new AsyncLogger().WaitForAsyncExceptions()));
-
-            server.Stop();
         }
     }
 }

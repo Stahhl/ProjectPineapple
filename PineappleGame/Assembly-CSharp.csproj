@@ -270,11 +270,8 @@
     <Reference Include="UnityEngine.XRModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
-    <Reference Include="Domain">
-      <HintPath>C:/Utveckling/ProjectPineapple/PineappleGame/Assets/Domain/net461/Domain.dll</HintPath>
-    </Reference>
     <Reference Include="PineappleLib">
-      <HintPath>C:/Utveckling/ProjectPineapple/PineappleGame/Assets/Domain/net461/PineappleLib.dll</HintPath>
+      <HintPath>C:/Utveckling/ProjectPineapple/PineappleGame/Assets/PineappleLib/net461/PineappleLib.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.2.18f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

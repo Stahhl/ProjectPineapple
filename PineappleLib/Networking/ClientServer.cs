@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Numerics;
 using PineappleLib.Logging;
+using PineappleLib.Enums;
 
 namespace PineappleLib.Networking
 {
@@ -91,7 +92,7 @@ namespace PineappleLib.Networking
                 }
                 catch (Exception _ex)
                 {
-                    Logger.Log($"Error receiving TCP data: {_ex}", true);
+                    PineappleLogger.PineappleLog(LogType.ERROR, $"Error receiving TCP data: {_ex}");
                     //Server.Clients[id].Disconnect();
                 }
             }

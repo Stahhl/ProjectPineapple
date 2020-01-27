@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using PineappleLib.Logging;
+using PineappleLib.Enums;
 
 namespace PineappleLib.Networking
 {
@@ -26,29 +27,29 @@ namespace PineappleLib.Networking
                 Port = _port;
                 Clients = new Dictionary<int, ClientServer>();
 
-                Logger.Log("Starting server...", false);
+                PineappleLogger.PineappleLog(LogType.DEBUG, "Starting server...");
                 InitializeServerData();
 
                 tcpListener = new TcpListener(IPAddress.Any, Port);
                 tcpListener.Start();
                 tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-                Logger.Log($"Server started on port {Port}.", false);
+                PineappleLogger.PineappleLog(LogType.DEBUG, $"Server started on port {Port}.");
             }
             catch (Exception e)
             {
-                Logger.HandleException(e, true);
+                PineappleLogger.HandleException(e, true);
             }
         }
         public void Stop()
         {
             try
             {
-                Logger.Log("Stopping server...", false);
+                PineappleLogger.PineappleLog(LogType.DEBUG, "Stopping server...");
                 tcpListener.Stop();
             }
             catch (Exception e)
             {
-                Logger.HandleException(e, true);
+                PineappleLogger.HandleException(e, true);
             }
         }
         /// <summary>Handles new TCP connections.</summary>
@@ -56,7 +57,7 @@ namespace PineappleLib.Networking
         {
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-            Logger.Log($"Incoming connection from {_client.Client.RemoteEndPoint}...", false);
+            PineappleLogger.PineappleLog(LogType.DEBUG, $"Incoming connection from {_client.Client.RemoteEndPoint}...");
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
@@ -67,7 +68,7 @@ namespace PineappleLib.Networking
                 }
             }
 
-            Logger.Log($"{_client.Client.RemoteEndPoint} failed to connect: Server full!", false);
+            PineappleLogger.PineappleLog(LogType.WARNING, $"{_client.Client.RemoteEndPoint} failed to connect: Server full!");
         }
         /// <summary>Initializes all necessary server data.</summary>
         private void InitializeServerData()
