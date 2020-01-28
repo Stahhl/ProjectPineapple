@@ -2,6 +2,7 @@
 using PineappleLib.Enums;
 using Serilog;
 using Serilog.Configuration;
+using System.Threading;
 
 namespace PineappleLib.Logging
 {
@@ -14,7 +15,7 @@ namespace PineappleLib.Logging
         public static void HandleException(Exception _ex, bool doThrow, string msg = null)
         {
             ex = _ex;
-            PineappleLog(LogType.ERROR, msg != null ? msg : ex.ToString());
+            PineappleLog(LogType.FATAL, msg != null ? msg : ex.ToString());
 
             if (doThrow)
                 throw _ex;
@@ -38,6 +39,9 @@ namespace PineappleLib.Logging
                 case LogType.ERROR:
                     Log.Error(msg);
                     break;
+                case LogType.FATAL:
+                    Log.Fatal(msg);
+                    break;
                 //case LogType.COMBAT:
                 //    //TODO
                 //    break;
@@ -48,14 +52,16 @@ namespace PineappleLib.Logging
         public static void CloseLog()
         {
             Log.CloseAndFlush();
+            Thread.Sleep(100);
         }
         private static void Setup()
         {
             string date = DateTime.Now.ToString("yyyy_MM_dd");
 
             _logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
                 .WriteTo.Async(a => a
-                    .File($"{path}PineappleLog-{date}.log"/*, fileSizeLimitBytes: int.MaxValue, buffered: true*/))
+                    .File($"{path}PineappleLog-{date}.log"))
                 .CreateLogger();
 
             Log.Logger = _logger;

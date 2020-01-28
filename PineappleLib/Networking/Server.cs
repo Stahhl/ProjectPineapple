@@ -5,26 +5,44 @@ using System.Net.Sockets;
 using System.Text;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
+using PineappleLib.Networking.Client;
+using System.Net.NetworkInformation;
 
 namespace PineappleLib.Networking
 {
+
     public class Server
     {
-        public static int MaxPlayers { get; private set; }
-        public static int Port { get; private set; }
-        public static Dictionary<int, ClientServer> Clients;
+        public Server(int port)
+        {
+            Init(5, port);
+        }
+
+        public int MaxPlayers { get; private set; }
+        public int Port { get; private set; }
+
+        public Dictionary<int, ClientServer> Clients;
         //public delegate void PacketHandler(int _fromClient, Packet _packet);
         //public static Dictionary<int, PacketHandler> packetHandlers;
 
         private static TcpListener tcpListener;
         //private static UdpClient udpListener;
 
-        public void Start(int _maxPlayers, int _port)
+        private void Init(int _maxPlayers, int port)
         {
             try
             {
+                IPGlobalProperties ipGlobalProperties = IPGlobalProperties.GetIPGlobalProperties();
+                TcpConnectionInformation[] tcpConnInfoArray = ipGlobalProperties.GetActiveTcpConnections();
+
+                foreach (var tcpi in tcpConnInfoArray)
+                {
+                    if (tcpi.LocalEndPoint.Port == port)
+                        throw new SocketException();
+                }
+
+                Port = port;
                 MaxPlayers = _maxPlayers;
-                Port = _port;
                 Clients = new Dictionary<int, ClientServer>();
 
                 PineappleLogger.PineappleLog(LogType.DEBUG, "Starting server...");
@@ -37,10 +55,10 @@ namespace PineappleLib.Networking
             }
             catch (Exception e)
             {
-                PineappleLogger.HandleException(e, true);
+                PineappleLogger.HandleException(e, false);
             }
         }
-        public void Stop()
+        public void StopServer()
         {
             try
             {
@@ -61,9 +79,9 @@ namespace PineappleLib.Networking
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
-                if (Clients[i].tcp.socket == null)
+                if (Clients[i].Tcp.socket == null)
                 {
-                    Clients[i].tcp.Connect(_client);
+                    Clients[i].Tcp.Connect(_client);
                     return;
                 }
             }

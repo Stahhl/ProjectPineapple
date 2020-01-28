@@ -14,5 +14,6 @@ namespace PineappleLib.Enums
         DEBUG,
         WARNING,
         ERROR,
+        FATAL,
     }
 }

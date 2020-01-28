@@ -47,7 +47,6 @@ namespace XUnitTests
                 PineappleLog(LogType.INFO, $"MassWriteTest - Write {i} - {d}");
             }
 
-
             PineappleLogger.CloseLog();
 
             Assert.True(File.Exists(path));
