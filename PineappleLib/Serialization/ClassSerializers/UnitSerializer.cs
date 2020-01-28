@@ -1,10 +1,18 @@
 ﻿using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using PineappleLib.Models.Units;
 
 namespace PineappleLib.Serialization.ClassSerializers
 {
-    public class UnitSerializer : SerializationController
+    public class UnitSerializer
     {
+        public UnitSerializer(BinaryFormatter formatter)
+        {
+            this.formatter = formatter;
+        }
+
+        BinaryFormatter formatter;
+
         public byte[] Serialize(Unit unit)
         {
             byte[] data = null;

@@ -20,8 +20,8 @@ namespace PineappleLib.Serialization
             AddSerializers();
         }
 
-        private StreamingContext context;
-        private SurrogateSelector surrogateSelector;
+        protected StreamingContext context;
+        protected SurrogateSelector surrogateSelector;
         protected BinaryFormatter formatter;
 
         public UnitSerializer UnitSerializer { get; private set; }
@@ -32,7 +32,7 @@ namespace PineappleLib.Serialization
         }
         private void AddSerializers()
         {
-            UnitSerializer = new UnitSerializer();
+            UnitSerializer = new UnitSerializer(formatter);
         }
     }
 }

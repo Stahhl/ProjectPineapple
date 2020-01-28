@@ -21,6 +21,7 @@ namespace PineappleLib.Networking.TCP
 
         private ClientLocal client;
 
+        /// <summary>Attempts to connect to the server via TCP.</summary>
         public override void Connect()
         {
             socket = new TcpClient

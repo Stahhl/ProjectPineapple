@@ -23,7 +23,7 @@ namespace PineappleLib.Networking.Client
 
         public ClientLocal()
         {
-            Tcp = new TcpLocal(this);
+            Tcp = new TCP.TcpLocal(this);
             //udp = new UDP();
 
             ConnectToServer();

@@ -10,13 +10,13 @@ namespace Server
         {
             try
             {
-                Console.WriteLine("Hello World!");
+                //Console.WriteLine("Hello World!");
 
-                new PineappleLib.Networking.Server().Start(5, 55555);
+                //new PineappleLib.Networking.Server().Start(5, 55555);
 
-                var client = new ClientLocal();
+                //var client = new ClientLocal();
 
-                client.Init();
+                //client.Init();
             }
             catch (Exception e)
             {

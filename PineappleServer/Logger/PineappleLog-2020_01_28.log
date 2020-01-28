@@ -613,3 +613,131 @@
    at System.Net.Sockets.TcpListener.Start(Int32 backlog)
    at System.Net.Sockets.TcpListener.Start()
    at PineappleLib.Networking.Server.Init(Int32 _maxPlayers, Int32 port) in C:\Utveckling\ProjectPineapple\PineappleLib\Networking\Server.cs:line 52
+2020-01-28 13:38:35.744 +01:00 [DBG] Starting server...
+2020-01-28 13:38:35.747 +01:00 [DBG] Server started on port 55555.
+2020-01-28 13:38:38.766 +01:00 [DBG] Starting server...
+2020-01-28 13:38:38.766 +01:00 [DBG] Starting server...
+2020-01-28 13:38:38.775 +01:00 [FTL] System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at System.Net.Sockets.TcpListener.Start(Int32 backlog)
+   at System.Net.Sockets.TcpListener.Start()
+   at PineappleLib.Networking.Server.Init(Int32 _maxPlayers, Int32 port) in C:\Utveckling\ProjectPineapple\PineappleLib\Networking\Server.cs:line 52
+2020-01-28 13:38:38.775 +01:00 [FTL] System.InvalidOperationException: Not listening. You must call the Start() method before calling this method.
+   at System.Net.Sockets.TcpListener.BeginAcceptTcpClient(AsyncCallback callback, Object state)
+   at PineappleLib.Networking.Server.Init(Int32 _maxPlayers, Int32 port) in C:\Utveckling\ProjectPineapple\PineappleLib\Networking\Server.cs:line 53
+2020-01-28 13:38:41.796 +01:00 [DBG] Starting server...
+2020-01-28 13:38:41.796 +01:00 [DBG] Server started on port 11111.
+2020-01-28 13:38:41.797 +01:00 [DBG] Starting server...
+2020-01-28 13:38:41.798 +01:00 [DBG] Server started on port 22222.
+2020-01-28 13:38:41.798 +01:00 [DBG] Starting server...
+2020-01-28 13:38:41.798 +01:00 [DBG] Server started on port 33333.
+2020-01-28 13:38:44.811 +01:00 [DBG] Starting server...
+2020-01-28 13:38:44.814 +01:00 [FTL] System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
+   at System.Net.Sockets.Socket.UpdateStatusAfterSocketErrorAndThrowException(SocketError error, String callerName)
+   at System.Net.Sockets.Socket.DoBind(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.Sockets.Socket.Bind(EndPoint localEP)
+   at System.Net.Sockets.TcpListener.Start(Int32 backlog)
+   at System.Net.Sockets.TcpListener.Start()
+   at PineappleLib.Networking.Server.Init(Int32 _maxPlayers, Int32 port) in C:\Utveckling\ProjectPineapple\PineappleLib\Networking\Server.cs:line 52
+2020-01-28 14:02:48.309 +01:00 [INF] MassWriteTest - Write 0 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 1 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 2 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 3 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 4 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 5 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 6 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 7 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 8 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 9 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 10 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 11 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 12 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 13 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 14 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 15 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 16 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 17 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 18 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 19 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 20 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 21 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 22 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 23 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 24 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 25 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 26 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 27 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 28 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 29 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 30 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 31 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 32 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 33 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 34 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 35 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 36 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 37 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 38 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 39 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 40 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 41 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 42 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 43 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 44 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 45 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 46 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 47 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 48 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 49 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 50 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 51 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 52 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 53 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 54 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 55 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 56 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 57 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 58 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 59 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 60 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 61 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 62 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 63 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 64 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 65 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 66 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 67 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 68 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 69 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 70 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 71 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 72 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 73 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 74 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 75 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 76 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 77 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 78 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 79 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 80 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 81 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 82 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 83 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 84 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 85 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 86 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 87 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 88 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 89 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 90 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 91 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 92 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 93 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 94 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 95 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 96 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 97 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 98 - 28/01/2020 14:02:48
+2020-01-28 14:02:48.313 +01:00 [INF] MassWriteTest - Write 99 - 28/01/2020 14:02:48
