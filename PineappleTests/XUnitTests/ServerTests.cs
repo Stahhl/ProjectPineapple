@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using PineappleLib.Networking;
-using PineappleLib.Networking.Client;
+using PineappleLib.Networking.Clients;
+using PineappleLib.Networking.Server;
 using System.Threading.Tasks;
 using System.Threading;
 using PineappleLib.Logging;
@@ -28,7 +29,7 @@ namespace XUnitTests
         {
             var server = new Server(55555);
 
-            new ClientLocal();
+            new Client();
 
             Thread.Sleep(10);
 

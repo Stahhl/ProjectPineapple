@@ -5,7 +5,7 @@ namespace PineappleLib.Logging
     public class AsyncLogger
     {
         /// <summary>
-        /// Waits for 3s and returns an exception if one was throws in that timespan.
+        /// Waits for 3s and throws and exception if one was thrown elsewhere in that timespan.
         /// </summary>
         public async Task WaitForAsyncExceptions()
         {

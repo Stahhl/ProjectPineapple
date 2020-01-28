@@ -5,12 +5,11 @@ using System.Net.Sockets;
 using System.Text;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
-using PineappleLib.Networking.Client;
+using PineappleLib.Networking.Clients;
 using System.Net.NetworkInformation;
 
-namespace PineappleLib.Networking
+namespace PineappleLib.Networking.Server
 {
-
     public class Server
     {
         public Server(int port)
@@ -21,11 +20,11 @@ namespace PineappleLib.Networking
         public int MaxPlayers { get; private set; }
         public int Port { get; private set; }
 
-        public Dictionary<int, ClientServer> Clients;
+        public Dictionary<int, Client> Clients;
         //public delegate void PacketHandler(int _fromClient, Packet _packet);
         //public static Dictionary<int, PacketHandler> packetHandlers;
 
-        private static TcpListener tcpListener;
+        private TcpListener tcpListener;
         //private static UdpClient udpListener;
 
         private void Init(int _maxPlayers, int port)
@@ -43,7 +42,7 @@ namespace PineappleLib.Networking
 
                 Port = port;
                 MaxPlayers = _maxPlayers;
-                Clients = new Dictionary<int, ClientServer>();
+                Clients = new Dictionary<int, Client>();
 
                 PineappleLogger.PineappleLog(LogType.DEBUG, "Starting server...");
                 InitializeServerData();
@@ -93,7 +92,7 @@ namespace PineappleLib.Networking
         {
             for (int i = 1; i <= MaxPlayers; i++)
             {
-                Clients.Add(i, new ClientServer(i));
+                Clients.Add(i, new Client(i));
             }
 
             //packetHandlers = new Dictionary<int, PacketHandler>()
