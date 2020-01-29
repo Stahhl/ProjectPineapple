@@ -16,6 +16,7 @@ namespace PineappleLib.Networking.Servers
         public Server(int port)
         {
             Clients = new Dictionary<int, Client>();
+            ServerHandlers = new ServerHandlers(this);
             ServerSender = new ServerSender(this);
 
             Start(port);
@@ -25,9 +26,11 @@ namespace PineappleLib.Networking.Servers
         public int Port { get; private set; }
 
         public ServerSender ServerSender { get; private set; }
+        public ServerHandlers ServerHandlers { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
+        //public Dictionary<int, PacketHandler> PacketHandlers { get; private set; }
+
         //public delegate void PacketHandler(int _fromClient, Packet _packet);
-        //public static Dictionary<int, PacketHandler> packetHandlers;
 
         private TcpListener tcpListener;
         //private static UdpClient udpListener;

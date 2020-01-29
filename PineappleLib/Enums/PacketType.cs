@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace PineappleLib.Enums
 {
-    public enum ServerPackets
+    public enum PacketType
     {
-        WELCOME = 1
-    }
-
-    public enum ClientPackets
-    {
-        WELCOMERECEIVED = 1
+        Welcome, //Server welcomes client assigns id
+        WelcomeReceived, //Client responds it let into game
     }
 }

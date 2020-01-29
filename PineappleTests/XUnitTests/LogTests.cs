@@ -5,6 +5,7 @@ using PineappleLib.Enums;
 using System;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace XUnitTests
 {
@@ -30,6 +31,8 @@ namespace XUnitTests
 
             Assert.True(File.Exists(path));
 
+            PineappleLogger.CloseLog();
+
             string content = File.ReadAllText(path);
 
             Assert.Equal($"{date} - Deployed\r\n", content);
@@ -47,9 +50,10 @@ namespace XUnitTests
                 PineappleLog(LogType.INFO, $"MassWriteTest - Write {i} - {d}");
             }
 
+            Assert.True(File.Exists(path), "File.Exists");
+
             PineappleLogger.CloseLog();
 
-            Assert.True(File.Exists(path));
             string content = File.ReadAllText(path);
 
             for (int i = 0; i < 100; i++)

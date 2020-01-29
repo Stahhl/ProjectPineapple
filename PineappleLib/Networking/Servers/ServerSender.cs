@@ -21,7 +21,7 @@ namespace PineappleLib.Networking.Servers
 
         public void Welcome(int clientId, string msg = "Welcome to the Server!")
         {
-            using (Packet packet = new Packet((int)ServerPackets.WELCOME))
+            using (Packet packet = new Packet((int)PacketType.Welcome))
             {
                 packet.Write(msg);
                 packet.Write(clientId);

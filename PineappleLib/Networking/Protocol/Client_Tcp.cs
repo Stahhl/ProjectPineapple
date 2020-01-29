@@ -111,7 +111,7 @@ namespace PineappleLib.Networking.Protocol
                     using (Packet _packet = new Packet(_packetBytes))
                     {
                         int _packetId = _packet.ReadInt();
-                        //Server.packetHandlers[_packetId](id, _packet); // Call appropriate method to handle the packet
+                        Client.ClientHandlers.Handlers[_packetId](_packet); // Call appropriate method to handle the packet
                     }
                 });
 

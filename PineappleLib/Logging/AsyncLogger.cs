@@ -5,13 +5,13 @@ namespace PineappleLib.Logging
     public class AsyncLogger
     {
         /// <summary>
-        /// Waits for 3s and throws and exception if one was thrown elsewhere in that timespan.
+        /// Waits for ms and throws and exception if one was thrown elsewhere in that timespan.
         /// </summary>
-        public async Task WaitForAsyncExceptions()
+        public async Task WaitForAsyncExceptions(int ms = 1000)
         {
             var ex = PineappleLogger.ex;
 
-            await Task.Delay(3000);
+            await Task.Delay(ms);
 
             if (ex != PineappleLogger.ex)
                 throw PineappleLogger.ex;

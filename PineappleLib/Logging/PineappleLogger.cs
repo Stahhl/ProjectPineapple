@@ -3,13 +3,18 @@ using PineappleLib.Enums;
 using Serilog;
 using Serilog.Configuration;
 using System.Threading;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace PineappleLib.Logging
 {
     public static class PineappleLogger
     {
         public static Exception ex { get; private set; }
-        private static string path = "C:/Utveckling/ProjectPineapple/PineappleServer/Logger/";
+        private static string path = "C:/Utveckling/ProjectPineapple/PineappleServer/Logger/"; //TODO move to file
+        private static string date = DateTime.Now.ToString("yyyy_MM_dd");
+        private static string fileName = $"{path}PineappleLog-{date}.log";
+        public static readonly string fullPath = Path.Combine(path, fileName);
         private static Serilog.Core.Logger _logger;
 
         public static void HandleException(Exception _ex, bool doThrow, string msg = null)
@@ -46,22 +51,25 @@ namespace PineappleLib.Logging
                 //    //TODO
                 //    break;
                 default:
-                    throw new Exception($"Wrong LogType: {logType.ToString()}");
+                    throw new NotImplementedException();
             }
         }
-        public static void CloseLog()
+        /// <summary>
+        /// Use if you want to read from the log.
+        /// Probably only for testing.
+        /// </summary>
+        public static void CloseLog(int ms = 1000)
         {
+            Thread.Sleep(ms);
+            PineappleLog(LogType.DEBUG, "Closing and flushing log!");
             Log.CloseAndFlush();
-            Thread.Sleep(100);
         }
         private static void Setup()
         {
-            string date = DateTime.Now.ToString("yyyy_MM_dd");
-
             _logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Async(a => a
-                    .File($"{path}PineappleLog-{date}.log"))
+                    .File(fullPath))
                 .CreateLogger();
 
             Log.Logger = _logger;

@@ -23,11 +23,11 @@ namespace PineappleLib.Networking.Protocol
 
         public virtual void Connect()
         {
-
+            throw new NotImplementedException();
         }
         public virtual void Connect(TcpClient tcpClient)
         {
-
+            throw new NotImplementedException();
         }
         protected virtual void ConnectCallback(IAsyncResult _result)
         {
