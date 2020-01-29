@@ -7,27 +7,32 @@ using PineappleLib.Logging;
 using PineappleLib.Enums;
 using PineappleLib.Networking.Clients;
 using System.Net.NetworkInformation;
+using static PineappleLib.General.Data.Values;
 
-namespace PineappleLib.Networking.Server
+namespace PineappleLib.Networking.Servers
 {
     public class Server
     {
         public Server(int port)
         {
-            Init(5, port);
+            Clients = new Dictionary<int, Client>();
+            ServerSender = new ServerSender(this);
+
+            Start(port);
         }
 
         public int MaxPlayers { get; private set; }
         public int Port { get; private set; }
 
-        public Dictionary<int, Client> Clients;
+        public ServerSender ServerSender { get; private set; }
+        public Dictionary<int, Client> Clients { get; private set; }
         //public delegate void PacketHandler(int _fromClient, Packet _packet);
         //public static Dictionary<int, PacketHandler> packetHandlers;
 
         private TcpListener tcpListener;
         //private static UdpClient udpListener;
 
-        private void Init(int _maxPlayers, int port)
+        private void Start(int port, int _maxPlayers = 5)
         {
             try
             {
@@ -42,7 +47,6 @@ namespace PineappleLib.Networking.Server
 
                 Port = port;
                 MaxPlayers = _maxPlayers;
-                Clients = new Dictionary<int, Client>();
 
                 PineappleLogger.PineappleLog(LogType.DEBUG, "Starting server...");
                 InitializeServerData();
@@ -57,7 +61,7 @@ namespace PineappleLib.Networking.Server
                 PineappleLogger.HandleException(e, false);
             }
         }
-        public void StopServer()
+        public void Stop()
         {
             try
             {
@@ -78,7 +82,7 @@ namespace PineappleLib.Networking.Server
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
-                if (Clients[i].Tcp.socket == null)
+                if (Clients[i].Tcp.Socket == null)
                 {
                     Clients[i].Tcp.Connect(_client);
                     return;
@@ -92,7 +96,7 @@ namespace PineappleLib.Networking.Server
         {
             for (int i = 1; i <= MaxPlayers; i++)
             {
-                Clients.Add(i, new Client(i));
+                Clients.Add(i, new Client(this, i));
             }
 
             //packetHandlers = new Dictionary<int, PacketHandler>()

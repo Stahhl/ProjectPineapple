@@ -4,6 +4,7 @@ using PineappleLib.Networking.Protocol;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
 using static PineappleLib.General.Data.Values;
+using PineappleLib.Networking.Servers;
 
 namespace PineappleLib.Networking.Clients
 {
@@ -16,35 +17,36 @@ namespace PineappleLib.Networking.Clients
             Ip = stdIp;
             Port = stdPort;
 
-            Tcp = new Tcp(this);
+            Tcp = new Client_Tcp(this);
             //udp = new UDP();
 
             Tcp.Connect();
         }
-        public Client(int id)
+
+        public Client(Server server, int id)
         {
             IsServer = true;
 
             Id = id;
-            Tcp = new Tcp(id);
+            Tcp = new Server_Tcp(server, id);
             //udp = new UDP(id);
         }
 
-        private readonly bool IsServer;
+        protected readonly bool IsServer;
 
         public bool IsConnected { get; set; }
 
-        public Tcp Tcp { get; private set; }
-        public int Id { get; private set; }
+        public _Tcp Tcp { get; protected set; }
+        public int Id { get; protected set; }
 
-        public string Ip { get; private set; }
-        public int Port { get; private set; }
+        public string Ip { get; protected set; }
+        public int Port { get; protected set; }
 
         public void Disconnect()
         {
             if (IsServer == false)
             {
-                Tcp.socket.Close();
+                Tcp.Socket.Close();
                 //udp.socket.Close();
 
                 PineappleLogger.PineappleLog(LogType.DEBUG, "Disconnected from server.");

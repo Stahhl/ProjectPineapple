@@ -16,7 +16,7 @@ namespace XUnitTests
             var peon = new Unit();
 
             var data = serializer.UnitSerializer.Serialize(peon);
-            var peonClone = serializer.UnitSerializer.Deserialize(data);
+            var peonClone = (Unit)serializer.UnitSerializer.Deserialize(data);
 
             Assert.Equal(peon.Id, peonClone.Id);
             Assert.Equal(peon.Name, peonClone.Name);

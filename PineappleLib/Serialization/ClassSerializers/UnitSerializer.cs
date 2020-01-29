@@ -13,20 +13,20 @@ namespace PineappleLib.Serialization.ClassSerializers
 
         BinaryFormatter formatter;
 
-        public byte[] Serialize(Unit unit)
+        public byte[] Serialize(object obj)
         {
             byte[] data = null;
 
             using (MemoryStream stream = new MemoryStream())
             {
-                formatter.Serialize(stream, unit);
+                formatter.Serialize(stream, obj);
                 data = stream.GetBuffer();
             }
 
             return data;
         }
 
-        public Unit Deserialize(byte[] data)
+        public object Deserialize(byte[] data)
         {
             object objectGraph = null;
             using (MemoryStream stream = new MemoryStream(data))
@@ -34,7 +34,7 @@ namespace PineappleLib.Serialization.ClassSerializers
                 objectGraph = formatter.Deserialize(stream);
             }
 
-            return (Unit)objectGraph;
+            return objectGraph;
         }
     }
 }
