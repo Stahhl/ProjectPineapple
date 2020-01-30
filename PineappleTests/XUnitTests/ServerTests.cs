@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using PineappleLib.Logging;
 using static PineappleLib.General.Data.Values;
+using PineappleLib.Models.Players;
 
 namespace XUnitTests
 {
@@ -40,7 +41,7 @@ namespace XUnitTests
             var lg = new AsyncLogger();
             var server = new Server(stdPort);
 
-            new Client();
+            new Client(new Player());
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
         }

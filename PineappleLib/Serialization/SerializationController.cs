@@ -3,7 +3,6 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using PineappleLib.Serialization.Surrogates;
-using PineappleLib.Serialization.ClassSerializers;
 using PineappleLib.Models.Units;
 
 namespace PineappleLib.Serialization
@@ -17,22 +16,39 @@ namespace PineappleLib.Serialization
             formatter = new BinaryFormatter(surrogateSelector, context);
 
             AddSurrogates();
-            AddSerializers();
         }
 
         protected StreamingContext context;
         protected SurrogateSelector surrogateSelector;
-        protected BinaryFormatter formatter;
+        protected IFormatter formatter;
 
-        public UnitSerializer UnitSerializer { get; private set; }
+        public byte[] Serialize(object obj)
+        {
+            byte[] data = null;
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                formatter.Serialize(stream, obj);
+                data = stream.GetBuffer();
+            }
+
+            return data;
+        }
+
+        public object Deserialize(byte[] data)
+        {
+            object objectGraph = null;
+            using (MemoryStream stream = new MemoryStream(data))
+            {
+                objectGraph = formatter.Deserialize(stream);
+            }
+
+            return objectGraph;
+        }
 
         private void AddSurrogates()
         {
-            surrogateSelector.AddSurrogate(typeof(Unit), context, new UnitSurrogate());
-        }
-        private void AddSerializers()
-        {
-            UnitSerializer = new UnitSerializer(formatter);
+            //surrogateSelector.AddSurrogate(typeof(Unit), context, new UnitSurrogate());
         }
     }
 }

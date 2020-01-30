@@ -1,4 +1,5 @@
 ﻿using PineappleLib.Models.Units;
+using PineappleLib.Models.Players;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,18 +11,30 @@ namespace XUnitTests
     public class SerializationTests
     {
         [Fact]
-        public void PeonTest()
+        public void UnitTest01()
         {
             var serializer = new SerializationController();
             var peon = new Unit();
 
-            var data = serializer.UnitSerializer.Serialize(peon);
-            var peonClone = (Unit)serializer.UnitSerializer.Deserialize(data);
+            var data = serializer.Serialize(peon);
+            var peonClone = (Unit)serializer.Deserialize(data);
 
             Assert.Equal(peon.Id, peonClone.Id);
             Assert.Equal(peon.Name, peonClone.Name);
             Assert.Equal(peon.HealthPoints, peonClone.HealthPoints);
             Assert.Equal(peon.ActionPoints, peonClone.ActionPoints);
+        }
+        [Fact]
+        public void PlayerTest()
+        {
+            var serializer = new SerializationController();
+            var player = new Player();
+
+            var data = serializer.Serialize(player);
+            var playerClone = (Player)serializer.Deserialize(data);
+
+            Assert.Equal(player.Name, playerClone.Name);
+            Assert.Equal(player.Units[0].Name, playerClone.Units[0].Name);
         }
     }
 }

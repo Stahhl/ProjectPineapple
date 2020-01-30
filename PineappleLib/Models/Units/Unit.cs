@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 
 namespace PineappleLib.Models.Units
 {
+    [Serializable]
     public class Unit : ModelInterface
     {
         public Unit()
