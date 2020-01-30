@@ -25,7 +25,7 @@ namespace XUnitTests
             Assert.Equal(peon.ActionPoints, peonClone.ActionPoints);
         }
         [Fact]
-        public void PlayerTest()
+        public void PlayerTest01()
         {
             var serializer = new SerializationController();
             var player = new Player();

@@ -31,34 +31,27 @@ namespace XUnitTests
 
             Assert.True(File.Exists(path));
 
-            PineappleLogger.CloseLog();
+            string content = PineappleReader.Read(path);
 
-            string content = File.ReadAllText(path);
-
-            Assert.Equal($"{date} - Deployed\r\n", content);
+            Assert.Equal($"{date} - Deployed", content);
         }
         [Fact]
         public void MassWriteTest()
         {
-            var d = DateTime.Now.ToString();
-
-            string date = DateTime.Now.ToString("yyyy_MM_dd");
-            string path = Path.Combine("C:/Utveckling/ProjectPineapple/PineappleServer/Logger", $"PineappleLog-{date}.log");
+            var id = DateTime.Now;
 
             for (int i = 0; i < 100; i++)
             {
-                PineappleLog(LogType.INFO, $"MassWriteTest - Write {i} - {d}");
+                PineappleLog(LogType.INFO, $"MassWriteTest - Write {i} - {id}");
             }
 
-            Assert.True(File.Exists(path), "File.Exists");
+            Assert.True(File.Exists(PineappleLogger.fullPath), "File.Exists");
 
-            PineappleLogger.CloseLog();
-
-            string content = File.ReadAllText(path);
+            string content = PineappleReader.Read(PineappleLogger.fullPath);
 
             for (int i = 0; i < 100; i++)
             {
-                Assert.Contains($"MassWriteTest - Write {i} - {d}", content);
+                Assert.Contains($"MassWriteTest - Write {i} - {id}", content);
             }
         }
     }

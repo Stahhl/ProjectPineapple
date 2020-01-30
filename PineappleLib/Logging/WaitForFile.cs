@@ -19,7 +19,7 @@ namespace PineappleLib.Logging
             {
                 try
                 {
-                    using (FileStream fs = new FileStream(PineappleLogger.fullPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None, 100))
+                    using (FileStream fs = new FileStream(PineappleLogger.fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 100))
                     {
                         fs.ReadByte();
 
