@@ -11,6 +11,13 @@ namespace PineappleLib.General.Exceptions
 
         }
     }
+    class ServerException : Exception
+    {
+        public ServerException()
+        {
+
+        }
+    }
 }
 
 

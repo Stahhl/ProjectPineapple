@@ -21,14 +21,33 @@ namespace PineappleLib.Networking.Protocol
         public Server Server { get; protected set; }
         //public int Id { get; private set; }
 
-        public virtual void Connect()
+        public virtual void ConnectServerToClient(TcpClient _socket)
         {
-            throw new NotImplementedException();
+            Socket = _socket;
+            Socket.ReceiveBufferSize = dataBufferSize;
+            Socket.SendBufferSize = dataBufferSize;
+
+            stream = Socket.GetStream();
+
+            receivedData = new Packet();
+            receiveBuffer = new byte[dataBufferSize];
+
+            stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
+
+            Server.ServerSender.WelcomeClient(Id);
         }
-        public virtual void Connect(TcpClient tcpClient)
+        public virtual void ConnectClientToServer()
         {
-            throw new NotImplementedException();
+            Socket = new TcpClient
+            {
+                ReceiveBufferSize = dataBufferSize,
+                SendBufferSize = dataBufferSize
+            };
+
+            receiveBuffer = new byte[dataBufferSize];
+            Socket.BeginConnect(Client.Ip, Client.Port, ConnectCallback, Socket);
         }
+
         protected virtual void ConnectCallback(IAsyncResult _result)
         {
             throw new NotImplementedException();

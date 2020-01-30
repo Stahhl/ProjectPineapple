@@ -18,20 +18,21 @@ namespace PineappleLib.Networking.Servers
             Clients = new Dictionary<int, Client>();
             ServerHandlers = new ServerHandlers(this);
             ServerSender = new ServerSender(this);
+            serverLogic = new ServerLogic(this);
 
             Start(port);
         }
 
         public int MaxPlayers { get; private set; }
         public int Port { get; private set; }
+        public bool IsRunning { get; private set; }
 
         public ServerSender ServerSender { get; private set; }
         public ServerHandlers ServerHandlers { get; private set; }
+        //public ServerLogic ServerLogic { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
-        //public Dictionary<int, PacketHandler> PacketHandlers { get; private set; }
 
-        //public delegate void PacketHandler(int _fromClient, Packet _packet);
-
+        private ServerLogic serverLogic;
         private TcpListener tcpListener;
         //private static UdpClient udpListener;
 
@@ -69,7 +70,10 @@ namespace PineappleLib.Networking.Servers
             try
             {
                 PineappleLogger.PineappleLog(LogType.DEBUG, "Stopping server...");
+                serverLogic.Stop();
                 tcpListener.Stop();
+
+                IsRunning = false;
             }
             catch (Exception e)
             {
@@ -79,6 +83,12 @@ namespace PineappleLib.Networking.Servers
         /// <summary>Handles new TCP connections.</summary>
         private void TCPConnectCallback(IAsyncResult _result)
         {
+            if(IsRunning == false)
+            {
+                PineappleLogger.PineappleLog(LogType.WARNING, "Server - TCPConnectCallback - Callback on stopped server");
+                return;
+            }
+
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
             PineappleLogger.PineappleLog(LogType.DEBUG, $"Incoming connection from {_client.Client.RemoteEndPoint}...");
@@ -87,7 +97,7 @@ namespace PineappleLib.Networking.Servers
             {
                 if (Clients[i].Tcp.Socket == null)
                 {
-                    Clients[i].Tcp.Connect(_client);
+                    Clients[i].Tcp.ConnectServerToClient(_client);
                     return;
                 }
             }

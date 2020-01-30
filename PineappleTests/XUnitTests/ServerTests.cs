@@ -18,7 +18,19 @@ namespace XUnitTests
         public async Task StartServerTest()
         {
             var lg = new AsyncLogger();
-            var server = new Server(stdPort);
+            var server = new Server(00000);
+
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+        }
+        [Fact]
+        public async Task StartStopServerTest()
+        {
+            var lg = new AsyncLogger();
+            var server = new Server(00001);
+
+            Thread.Sleep(100);
+
+            server.Stop();
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
         }
@@ -26,8 +38,7 @@ namespace XUnitTests
         public async Task ConnectToServerTest()
         {
             var lg = new AsyncLogger();
-
-            var server = new Server(55555);
+            var server = new Server(stdPort);
 
             new Client();
 

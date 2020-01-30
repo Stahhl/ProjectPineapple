@@ -19,7 +19,7 @@ namespace PineappleLib.Networking.Servers
 
         private Server server;
 
-        public void Welcome(int clientId, string msg = "Welcome to the Server!")
+        public void WelcomeClient(int clientId, string msg = "Welcome to the Server!")
         {
             using (Packet packet = new Packet((int)PacketType.Welcome))
             {

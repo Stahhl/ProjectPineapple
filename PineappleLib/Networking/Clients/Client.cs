@@ -6,12 +6,13 @@ using PineappleLib.Enums;
 using static PineappleLib.General.Data.Values;
 using PineappleLib.Networking.Servers;
 using System.Collections.Generic;
+using PineappleLib.Models.Players;
 
 namespace PineappleLib.Networking.Clients
 {
     public class Client
     {
-        public Client()
+        public Client(Player player)
         {
             IsServer = false;
 
@@ -24,7 +25,7 @@ namespace PineappleLib.Networking.Clients
 
             //udp = new UDP();
 
-            Tcp.Connect();
+            Tcp.ConnectClientToServer();
         }
 
         public Client(Server server, int id)

@@ -21,18 +21,6 @@ namespace PineappleLib.Networking.Protocol
             Client = client;
         }
 
-        public override void Connect()
-        {
-            Socket = new TcpClient
-            {
-                ReceiveBufferSize = dataBufferSize,
-                SendBufferSize = dataBufferSize
-            };
-
-            receiveBuffer = new byte[dataBufferSize];
-            Socket.BeginConnect(Client.Ip, Client.Port, ConnectCallback, Socket);
-        }
-
         protected override void ConnectCallback(IAsyncResult _result)
         {
             try
