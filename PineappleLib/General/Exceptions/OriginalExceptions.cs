@@ -18,6 +18,14 @@ namespace PineappleLib.General.Exceptions
 
         }
     }
+
+    class ClientIdException : Exception
+    {
+        public ClientIdException()
+        {
+
+        }
+    }
 }
 
 

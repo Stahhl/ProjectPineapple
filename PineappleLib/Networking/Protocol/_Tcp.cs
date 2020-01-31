@@ -10,7 +10,7 @@ namespace PineappleLib.Networking.Protocol
 {
     public abstract class _Tcp
     {
-        protected int Id;
+        protected int? Id;
         protected NetworkStream stream;
         protected Packet receivedData;
         protected byte[] receiveBuffer;
@@ -21,7 +21,7 @@ namespace PineappleLib.Networking.Protocol
         public Server Server { get; protected set; }
         //public int Id { get; private set; }
 
-        public virtual void ConnectServerToClient(TcpClient _socket)
+        public virtual void ConnectServerToClient(int clientId, TcpClient _socket)
         {
             Socket = _socket;
             Socket.ReceiveBufferSize = dataBufferSize;
@@ -34,7 +34,7 @@ namespace PineappleLib.Networking.Protocol
 
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
-            Server.ServerSender.WelcomeClient(Id);
+            Server.ServerSender.WelcomeClient(clientId);
         }
         public virtual void ConnectClientToServer()
         {

@@ -10,6 +10,9 @@ namespace PineappleLib.General.Data
     {
         private static Random random = new Random();
 
+        /// <summary>
+        /// 4 -> returns random between 1000 - 9999
+        /// </summary>
         public static int GetRandomOfDigits(int digits)
         {
             string minStr = "1";

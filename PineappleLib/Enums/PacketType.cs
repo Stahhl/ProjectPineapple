@@ -8,7 +8,9 @@ namespace PineappleLib.Enums
 {
     public enum PacketType
     {
-        Welcome, //Server welcomes client assigns id
+        Welcome = 0, //Server welcomes client assigns id
         WelcomeReceived, //Client responds it let into game
+        PlayerFromClient,
+        asdfff,
     }
 }

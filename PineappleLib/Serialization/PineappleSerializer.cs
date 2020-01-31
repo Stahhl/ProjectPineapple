@@ -4,12 +4,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using PineappleLib.Serialization.Surrogates;
 using PineappleLib.Models.Units;
+using PineappleLib.Logging;
 
 namespace PineappleLib.Serialization
 {
-    public class SerializationController
+    public class PineappleSerializer
     {
-        public SerializationController()
+        public PineappleSerializer()
         {
             context = new StreamingContext();
             surrogateSelector = new SurrogateSelector();

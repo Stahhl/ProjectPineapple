@@ -13,12 +13,12 @@ namespace PineappleLib.Networking.Protocol
 {
     public class Server_Tcp : _Tcp
     {
-        public Server_Tcp(Server server, int clientId)
+        public Server_Tcp(Server server)
         {
             IsServer = true;
+            Id = null;
 
             this.Server = server;
-            Id = clientId;
         }
 
         protected override void ConnectCallback(IAsyncResult _result)
@@ -36,7 +36,7 @@ namespace PineappleLib.Networking.Protocol
 
                 receivedData = new Packet();
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
-                Client.IsConnected = true;
+                //Client.IsConnected = true;
             }
             catch (Exception e)
             {
@@ -96,8 +96,10 @@ namespace PineappleLib.Networking.Protocol
                 {
                     using (Packet _packet = new Packet(_packetBytes))
                     {
-                        int _packetId = _packet.ReadInt();
-                        //Server.packetHandlers[_packetId](id, _packet); // Call appropriate method to handle the packet
+                        int packetId = _packet.ReadInt();
+                        int clientId = _packet.ReadInt();
+
+                        Server.ServerHandlers.Handlers[packetId](clientId, _packet); // Call appropriate method to handle the packet
                     }
                 });
 

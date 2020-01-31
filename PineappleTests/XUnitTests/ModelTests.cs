@@ -2,6 +2,7 @@ using System;
 using Xunit;
 using PineappleLib.Models.Units;
 using PineappleLib.Models.Players;
+using PineappleLib.Models.Controllers;
 using PineappleLib.General.Data;
 
 namespace XUnitTests
@@ -20,7 +21,8 @@ namespace XUnitTests
         [Fact]
         public void PlayerTest01()
         {
-            var player = new Player();
+            var pC = new PlayerController();
+            var player = pC.Player;
 
             Assert.Contains("Player_", player.Name);
             Assert.Single(player.Units);

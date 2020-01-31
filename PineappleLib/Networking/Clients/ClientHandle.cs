@@ -16,6 +16,7 @@ namespace PineappleLib.Networking.Clients
         }
 
         private Client client;
+        private const string type = "[Client]";
 
         public void WelcomeFromServer(Packet packet)
         {
@@ -24,7 +25,7 @@ namespace PineappleLib.Networking.Clients
 
             client.Id = id;
 
-            PineappleLogger.PineappleLog(LogType.INFO, $"I received welcome from server my new ID is: {client.Id}");
+            PineappleLogger.PineappleLog(LogType.INFO, $"{type} I received welcome from server my new ID is: {client.Id}, Message: {msg}");
             client.ClientSender.WelcomeReceived();
         }
     }

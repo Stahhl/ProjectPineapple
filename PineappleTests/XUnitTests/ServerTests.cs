@@ -10,6 +10,7 @@ using System.Threading;
 using PineappleLib.Logging;
 using static PineappleLib.General.Data.Values;
 using PineappleLib.Models.Players;
+using PineappleLib.Models.Controllers;
 
 namespace XUnitTests
 {
@@ -41,9 +42,16 @@ namespace XUnitTests
             var lg = new AsyncLogger();
             var server = new Server(stdPort);
 
-            new Client(new Player());
+            var pC = new PlayerController();
+
+            pC.GoOnline();
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+
+            var localPlayer = pC.Player;
+            var onlinePlayer = server.Clients[1].Player;
+
+            Assert.Equal(localPlayer.Name, onlinePlayer.Name);
         }
         [Fact]
         public async Task MultipleServerTest_Pass()
@@ -65,6 +73,32 @@ namespace XUnitTests
             var t2 = Task.Run(() => new Server(44444));
 
             Assert.NotNull(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+        }
+        [Fact]
+        public async Task ConnectTwoPlayersTest()
+        {
+            var lg = new AsyncLogger();
+            var server = new Server(stdPort);
+
+            var player1 = new PlayerController().Player;
+            var player2 = new PlayerController().Player;
+
+            player1.pC.GoOnline();
+            player2.pC.GoOnline();
+
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+
+            var player1Copy = server.Clients[1].Player;
+            var player2Copy = server.Clients[2].Player;
+
+            var e1 = player1.Name;
+            var e2 = player2.Name;
+
+            var a1 = server.Clients[1].Player.Name;
+            var a2 = server.Clients[2].Player.Name;
+
+            Assert.Equal(e1, a1);
+            Assert.Equal(e2, a2);
         }
     }
 }

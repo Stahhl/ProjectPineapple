@@ -7,6 +7,8 @@ using PineappleLib.Logging;
 using PineappleLib.Enums;
 using PineappleLib.Networking.Clients;
 using System.Net.NetworkInformation;
+using PineappleLib.Models.Controllers;
+using PineappleLib.Serialization;
 using static PineappleLib.General.Data.Values;
 
 namespace PineappleLib.Networking.Servers
@@ -19,6 +21,7 @@ namespace PineappleLib.Networking.Servers
             ServerHandlers = new ServerHandlers(this);
             ServerSender = new ServerSender(this);
             serverLogic = new ServerLogic(this);
+            Serializer = new PineappleSerializer();
 
             Start(port);
         }
@@ -27,9 +30,9 @@ namespace PineappleLib.Networking.Servers
         public int Port { get; private set; }
         public bool IsRunning { get; private set; }
 
+        public PineappleSerializer Serializer { get; private set; }
         public ServerSender ServerSender { get; private set; }
         public ServerHandlers ServerHandlers { get; private set; }
-        //public ServerLogic ServerLogic { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
 
         private ServerLogic serverLogic;
@@ -51,14 +54,15 @@ namespace PineappleLib.Networking.Servers
 
                 Port = port;
                 MaxPlayers = _maxPlayers;
+                IsRunning = true;
 
-                PineappleLogger.PineappleLog(LogType.DEBUG, "Starting server...");
+                PineappleLogger.PineappleLog(LogType.INFO, "Starting server...");
                 InitializeServerData();
 
                 tcpListener = new TcpListener(IPAddress.Any, Port);
                 tcpListener.Start();
                 tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-                PineappleLogger.PineappleLog(LogType.DEBUG, $"Server started on port {Port}.");
+                PineappleLogger.PineappleLog(LogType.INFO, $"Server started on port {Port}.");
             }
             catch (Exception e)
             {
@@ -69,7 +73,7 @@ namespace PineappleLib.Networking.Servers
         {
             try
             {
-                PineappleLogger.PineappleLog(LogType.DEBUG, "Stopping server...");
+                PineappleLogger.PineappleLog(LogType.WARNING, "Stopping server...");
                 serverLogic.Stop();
                 tcpListener.Stop();
 
@@ -85,19 +89,22 @@ namespace PineappleLib.Networking.Servers
         {
             if(IsRunning == false)
             {
-                PineappleLogger.PineappleLog(LogType.WARNING, "Server - TCPConnectCallback - Callback on stopped server");
+                PineappleLogger.PineappleLog(LogType.WARNING, "Server - TCPConnectCallback - IsRunning == false");
                 return;
             }
 
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-            PineappleLogger.PineappleLog(LogType.DEBUG, $"Incoming connection from {_client.Client.RemoteEndPoint}...");
+            PineappleLogger.PineappleLog(LogType.INFO, $"Incoming connection from {_client.Client.RemoteEndPoint}...");
 
             for (int i = 1; i <= MaxPlayers; i++)
             {
-                if (Clients[i].Tcp.Socket == null)
+                if (Clients[i] == null)
                 {
-                    Clients[i].Tcp.ConnectServerToClient(_client);
+                    int jdhahd = i;
+
+                    Clients[i] = new Client(this, i);
+                    Clients[i].Tcp.ConnectServerToClient(i, _client);
                     return;
                 }
             }
@@ -109,7 +116,7 @@ namespace PineappleLib.Networking.Servers
         {
             for (int i = 1; i <= MaxPlayers; i++)
             {
-                Clients.Add(i, new Client(this, i));
+                Clients.Add(i, null);
             }
 
             //packetHandlers = new Dictionary<int, PacketHandler>()

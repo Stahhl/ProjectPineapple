@@ -1,5 +1,6 @@
 ﻿using PineappleLib.Models.Units;
 using PineappleLib.Models.Players;
+using PineappleLib.Models.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +14,7 @@ namespace XUnitTests
         [Fact]
         public void UnitTest01()
         {
-            var serializer = new SerializationController();
+            var serializer = new PineappleSerializer();
             var peon = new Unit();
 
             var data = serializer.Serialize(peon);
@@ -27,8 +28,9 @@ namespace XUnitTests
         [Fact]
         public void PlayerTest01()
         {
-            var serializer = new SerializationController();
-            var player = new Player();
+            var pC = new PlayerController();
+            var player = pC.Player;
+            var serializer = pC.Serializer;
 
             var data = serializer.Serialize(player);
             var playerClone = (Player)serializer.Deserialize(data);
