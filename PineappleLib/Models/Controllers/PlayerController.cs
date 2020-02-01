@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using PineappleLib.Networking;
 
 namespace PineappleLib.Models.Controllers
 {
@@ -17,11 +18,14 @@ namespace PineappleLib.Models.Controllers
         public PlayerController()
         {
             Player = new Player(this);
+            Serializer = new PineappleSerializer();
+            ThreadManager = new ThreadManager();
         }
 
         public Player Player { get; private set; }
         public Client Client { get; private set; }
         public PineappleSerializer Serializer { get; private set; }
+        public ThreadManager ThreadManager { get; private set; }
 
         public void GoOnline()
         {
@@ -30,7 +34,6 @@ namespace PineappleLib.Models.Controllers
             if (Client != null)
                 PineappleLogger.HandleException(new SingletonException(), true);
 
-            Serializer = new PineappleSerializer();
             Client = new Client(this);
         }
 

@@ -8,15 +8,20 @@ using PineappleLib.Enums;
 
 namespace PineappleLib.Networking
 {
-    public static class ThreadManager
+    public class ThreadManager
     {
-        private static readonly List<Action> executeOnMainThread = new List<Action>();
-        private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
+        public ThreadManager()
+        {
+            executeOnMainThread = new List<Action>();
+            executeCopiedOnMainThread = new List<Action>();
+        }
+        private List<Action> executeOnMainThread;
+        private List<Action> executeCopiedOnMainThread;
         private static bool actionToExecuteOnMainThread = false;
 
         /// <summary>Sets an action to be executed on the main thread.</summary>
         /// <param name="_action">The action to be executed on the main thread.</param>
-        public static void ExecuteOnMainThread(Action _action)
+        public void ExecuteOnMainThread(Action _action)
         {
             if (_action == null)
             {
@@ -32,7 +37,7 @@ namespace PineappleLib.Networking
         }
 
         /// <summary>Executes all code meant to run on the main thread. NOTE: Call this ONLY from the main thread.</summary>
-        public static void UpdateMain()
+        public void Update()
         {
             if (actionToExecuteOnMainThread)
             {

@@ -92,7 +92,7 @@ namespace PineappleLib.Networking.Protocol
             {
                 // While packet contains data AND packet data length doesn't exceed the length of the packet we're reading
                 byte[] _packetBytes = receivedData.ReadBytes(_packetLength);
-                ThreadManager.ExecuteOnMainThread(() =>
+                Server.ThreadManager.ExecuteOnMainThread(() =>
                 {
                     using (Packet _packet = new Packet(_packetBytes))
                     {

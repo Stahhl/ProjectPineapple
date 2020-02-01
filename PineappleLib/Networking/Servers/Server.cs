@@ -10,20 +10,22 @@ using System.Net.NetworkInformation;
 using PineappleLib.Models.Controllers;
 using PineappleLib.Serialization;
 using static PineappleLib.General.Data.Values;
+using System.Threading;
+using PineappleLib.Networking.Loopers;
 
 namespace PineappleLib.Networking.Servers
 {
     public class Server
     {
-        public Server(int port)
+        public Server()
         {
             Clients = new Dictionary<int, Client>();
             ServerHandlers = new ServerHandlers(this);
             ServerSender = new ServerSender(this);
-            serverLogic = new ServerLogic(this);
+            serverLooper = new ServerLooper(this);
             Serializer = new PineappleSerializer();
-
-            Start(port);
+            ClientQueue = new Queue<Client>();
+            ThreadManager = new ThreadManager();
         }
 
         public int MaxPlayers { get; private set; }
@@ -34,12 +36,14 @@ namespace PineappleLib.Networking.Servers
         public ServerSender ServerSender { get; private set; }
         public ServerHandlers ServerHandlers { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
+        public Queue<Client> ClientQueue { get; private set; }
+        public ThreadManager ThreadManager { get; private set; }
 
-        private ServerLogic serverLogic;
+        private ServerLooper serverLooper;
         private TcpListener tcpListener;
         //private static UdpClient udpListener;
 
-        private void Start(int port, int _maxPlayers = 5)
+        public void Start(int port, int _maxPlayers = 5)
         {
             try
             {
@@ -59,6 +63,8 @@ namespace PineappleLib.Networking.Servers
                 PineappleLogger.PineappleLog(LogType.INFO, "Starting server...");
                 InitializeServerData();
 
+                serverLooper.Start();
+
                 tcpListener = new TcpListener(IPAddress.Any, Port);
                 tcpListener.Start();
                 tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
@@ -74,10 +80,12 @@ namespace PineappleLib.Networking.Servers
             try
             {
                 PineappleLogger.PineappleLog(LogType.WARNING, "Stopping server...");
-                serverLogic.Stop();
+                IsRunning = false;
+
+                serverLooper.Stop();
                 tcpListener.Stop();
 
-                IsRunning = false;
+                Thread.Sleep(50);
             }
             catch (Exception e)
             {
@@ -96,6 +104,8 @@ namespace PineappleLib.Networking.Servers
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
             PineappleLogger.PineappleLog(LogType.INFO, $"Incoming connection from {_client.Client.RemoteEndPoint}...");
+
+
 
             for (int i = 1; i <= MaxPlayers; i++)
             {

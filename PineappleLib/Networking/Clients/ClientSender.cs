@@ -15,7 +15,7 @@ namespace PineappleLib.Networking.Clients
         public ClientSender(Client client)
         {
             this.client = client;
-            this.serializer = client.Player.pC.Serializer;
+            this.serializer = client.Player.PlayerController.Serializer;
         }
 
         private Client client;

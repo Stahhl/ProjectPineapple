@@ -18,7 +18,7 @@ namespace PineappleLib.Models.Players
         {
             Units = new List<Unit>();
 
-            pC = pc;
+            PlayerController = pc;
 
             Name = "Player_" + PineappleRandom.GetRandomOfDigits(4);
 
@@ -26,7 +26,7 @@ namespace PineappleLib.Models.Players
         }
 
         [NonSerialized]
-        public readonly PlayerController pC;
+        public readonly PlayerController PlayerController;
 
         public string Name { get; private set; }
         public List<Unit> Units { get; private set; }
