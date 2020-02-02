@@ -19,13 +19,11 @@ namespace PineappleLib.Models.Controllers
         {
             Player = new Player(this);
             Serializer = new PineappleSerializer();
-            ThreadManager = new ThreadManager();
         }
 
         public Player Player { get; private set; }
         public Client Client { get; private set; }
         public PineappleSerializer Serializer { get; private set; }
-        public ThreadManager ThreadManager { get; private set; }
 
         public void GoOnline()
         {

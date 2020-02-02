@@ -11,7 +11,7 @@ namespace PineappleLib.Networking.Loopers
     {
         public ClientLooper(Client client)
         {
-            base.type = this.GetType().Name;
+            base.type = $"[{this.GetType().Name}]";
             this.client = client;
         }
 
@@ -19,8 +19,7 @@ namespace PineappleLib.Networking.Loopers
 
         public override void Update()
         {
-            //throw new NotImplementedException();
-            client.Player.PlayerController.ThreadManager.Update();
+            ThreadManager.UpdateActions();
         }
     }
 }

@@ -12,6 +12,7 @@ using PineappleLib.Serialization;
 using static PineappleLib.General.Data.Values;
 using System.Threading;
 using PineappleLib.Networking.Loopers;
+using System.Threading.Tasks;
 
 namespace PineappleLib.Networking.Servers
 {
@@ -24,8 +25,6 @@ namespace PineappleLib.Networking.Servers
             ServerSender = new ServerSender(this);
             serverLooper = new ServerLooper(this);
             Serializer = new PineappleSerializer();
-            ClientQueue = new Queue<Client>();
-            ThreadManager = new ThreadManager();
         }
 
         public int MaxPlayers { get; private set; }
@@ -36,8 +35,6 @@ namespace PineappleLib.Networking.Servers
         public ServerSender ServerSender { get; private set; }
         public ServerHandlers ServerHandlers { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
-        public Queue<Client> ClientQueue { get; private set; }
-        public ThreadManager ThreadManager { get; private set; }
 
         private ServerLooper serverLooper;
         private TcpListener tcpListener;
@@ -82,6 +79,7 @@ namespace PineappleLib.Networking.Servers
                 PineappleLogger.PineappleLog(LogType.WARNING, "Stopping server...");
                 IsRunning = false;
 
+                ThreadManager.Stop();
                 serverLooper.Stop();
                 tcpListener.Stop();
 
@@ -101,25 +99,12 @@ namespace PineappleLib.Networking.Servers
                 return;
             }
 
-            TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
+            TcpClient socket = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-            PineappleLogger.PineappleLog(LogType.INFO, $"Incoming connection from {_client.Client.RemoteEndPoint}...");
+            PineappleLogger.PineappleLog(LogType.INFO, $"Incoming connection from {socket.Client.RemoteEndPoint}...");
 
-
-
-            for (int i = 1; i <= MaxPlayers; i++)
-            {
-                if (Clients[i] == null)
-                {
-                    int jdhahd = i;
-
-                    Clients[i] = new Client(this, i);
-                    Clients[i].Tcp.ConnectServerToClient(i, _client);
-                    return;
-                }
-            }
-
-            PineappleLogger.PineappleLog(LogType.WARNING, $"{_client.Client.RemoteEndPoint} failed to connect: Server full!");
+            ThreadManager.QueueClient(socket);
+            //PineappleLogger.PineappleLog(LogType.WARNING, $"{_client.Client.RemoteEndPoint} failed to connect: Server full!");
         }
         /// <summary>Initializes all necessary server data.</summary>
         private void InitializeServerData()
@@ -128,12 +113,6 @@ namespace PineappleLib.Networking.Servers
             {
                 Clients.Add(i, null);
             }
-
-            //packetHandlers = new Dictionary<int, PacketHandler>()
-            //{
-            //    { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived },
-            //    { (int)ClientPackets.playerMovement, ServerHandle.PlayerMovement },
-            //};
         }
     }
 }

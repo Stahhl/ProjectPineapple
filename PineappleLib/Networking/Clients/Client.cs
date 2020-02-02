@@ -4,6 +4,7 @@ using PineappleLib.Networking.Protocol;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
 using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Helpers.Disposer;
 using PineappleLib.Networking.Servers;
 using System.Collections.Generic;
 using PineappleLib.Models.Players;
@@ -44,6 +45,14 @@ namespace PineappleLib.Networking.Clients
             Tcp = new Server_Tcp(server);
             //udp = new UDP(id);
         }
+        public Client(Server server)
+        {
+            IsServer = true;
+
+            Tcp = new Server_Tcp(server);
+            //udp = new UDP(id);
+        }
+
 
         private readonly bool IsServer;
 
@@ -78,6 +87,5 @@ namespace PineappleLib.Networking.Clients
                 PineappleLogger.PineappleLog(LogType.DEBUG, "Disconnected from server.");
             }
         }
-
     }//class
 }//namespace

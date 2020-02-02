@@ -54,7 +54,13 @@ namespace XUnitTests
 
             pC.GoOnline();
 
-            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+            //Task task = Task.Run(() => lg.WaitForConnections(server, 1));
+
+            //task.Wait();
+
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnections(server, 1)));
+
+            //Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions(3000)));
 
             var localPlayer = pC.Player;
             var onlinePlayer = server.Clients[1].Player;
@@ -86,7 +92,7 @@ namespace XUnitTests
             var t1 = Task.Run(() => new Server().Start(44444));
             var t2 = Task.Run(() => new Server().Start(44444));
 
-            Assert.NotNull(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+            Assert.NotNull(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions(3000)));
         }
         [Fact]
         public async Task ConnectTwoPlayersTest()
@@ -96,19 +102,18 @@ namespace XUnitTests
 
             server.Start(stdPort);
 
-            var player1 = new PlayerController().Player;
-            var player2 = new PlayerController().Player;
+            var player1 = new PlayerController();
+            var player2 = new PlayerController();
 
-            player1.PlayerController.GoOnline();
-            player2.PlayerController.GoOnline();
+            player1.GoOnline();
+            player2.GoOnline();
 
-            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
-
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnections(server, 2)));
             var player1Copy = server.Clients[1].Player;
             var player2Copy = server.Clients[2].Player;
 
-            var e1 = player1.Name;
-            var e2 = player2.Name;
+            var e1 = player1.Player.Name;
+            var e2 = player2.Player.Name;
 
             var a1 = server.Clients[1].Player.Name;
             var a2 = server.Clients[2].Player.Name;

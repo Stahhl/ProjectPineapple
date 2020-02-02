@@ -7,6 +7,7 @@ using PineappleLib.Networking;
 using System.Net;
 using System.Net.Sockets;
 using PineappleLib.Enums;
+using PineappleLib.Networking.Clients;
 
 namespace PineappleLib.Networking.Servers
 {
@@ -19,7 +20,7 @@ namespace PineappleLib.Networking.Servers
 
         private Server server;
 
-        public void WelcomeClient(int clientId, string msg = "Welcome to the Server!")
+        public void WelcomeClient(int clientId,  string msg = "Welcome to the Server!")
         {
             using (Packet packet = new Packet((int)PacketType.Welcome))
             {
