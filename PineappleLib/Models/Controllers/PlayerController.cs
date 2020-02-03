@@ -23,7 +23,7 @@ namespace PineappleLib.Models.Controllers
         public Client Client { get; private set; }
         public PineappleSerializer Serializer { get; private set; }
 
-        public void GoOnline()
+        public void OnlineGame()
         {
             Thread.Sleep(50);
 
@@ -32,6 +32,10 @@ namespace PineappleLib.Models.Controllers
 
             Serializer = new PineappleSerializer();
             Client = new Client(this);
+        }
+        public void OfflineGame()
+        {
+
         }
 
     }

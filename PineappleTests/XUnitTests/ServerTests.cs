@@ -44,7 +44,7 @@ namespace XUnitTests
 
             var pC = new PlayerController();
 
-            pC.GoOnline();
+            pC.OnlineGame();
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
 
@@ -83,8 +83,8 @@ namespace XUnitTests
             var player1 = new PlayerController().Player;
             var player2 = new PlayerController().Player;
 
-            player1.pC.GoOnline();
-            player2.pC.GoOnline();
+            player1.pC.OnlineGame();
+            player2.pC.OnlineGame();
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
 

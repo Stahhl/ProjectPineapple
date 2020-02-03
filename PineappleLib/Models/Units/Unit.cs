@@ -40,7 +40,14 @@ namespace PineappleLib.Models.Units
 
         public void AdjustHealth(int value, bool isNegative)
         {
-            throw new System.NotImplementedException();
+            if(isNegative == true)
+            {
+                HealthPoints -= value;
+            }
+            else
+            {
+                HealthPoints += value;
+            }
         }
 
         public void Initialize(object t)
