@@ -1,5 +1,6 @@
 ﻿using PineappleLib.Networking.Servers;
 using System.Threading.Tasks;
+using static PineappleLib.General.Data.Values;
 
 namespace PineappleLib.Logging
 {
@@ -17,18 +18,21 @@ namespace PineappleLib.Logging
             if (ex != PineappleLogger.ex)
                 throw PineappleLogger.ex;
         }
-        public async Task WaitForConnections(Server server, int expected)
-        {
-            int tries = 0;
 
-            while (tries < 10)
+        public async Task WaitForConnectionsServer(Server server, int expected, int ms = 1000)
+        {
+            int time = 0;
+            int wait = 100;
+
+            while (time < ms)
             {
                 int current = 0;
-                tries++;
+                time += wait;
 
-                for (int i = 1; i <= server.MaxPlayers; i++)
+                for (int i = 0; i <= serverMaxPlayers; i++)
                 {
                     var x = server.Clients[i];
+
                     if (x != null && x.Player != null)
                         current++;
 
@@ -38,7 +42,7 @@ namespace PineappleLib.Logging
                     }
                 }
 
-                await Task.Delay(100);
+                await Task.Delay(wait);
             }
         }
     }

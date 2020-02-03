@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PineappleLib.Interfaces;
 using PineappleLib.General.Data;
 using System.Runtime.Serialization;
+using PineappleLib.Models.Abilities;
 
 namespace PineappleLib.Models.Units
 {
@@ -12,17 +13,16 @@ namespace PineappleLib.Models.Units
     {
         public Unit()
         {
+            Abilities = new List<_Ability>();
+
             Name = "Peon";
             HealthPoints = Values.BaseHealthPoints;
             ActionPoints = Values.BaseActionPoints;
+
+            Abilities.Add(new Slap());
         }
-        public Unit(SerializationInfo info)
-        {
-            Id = info.GetString(nameof(Id));
-            Name = info.GetString(nameof(Name));
-            HealthPoints = info.GetInt32(nameof(HealthPoints));
-            ActionPoints = info.GetInt32(nameof(ActionPoints));
-        }
+
+        public List<_Ability> Abilities { get; protected set; }
 
         public bool HasChanged { get; protected set; } = true;
         public bool IsInitialized { get; protected set; }

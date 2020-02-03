@@ -1,4 +1,5 @@
-﻿using PineappleLib.Models.Units;
+﻿using PineappleLib.Controllers;
+using PineappleLib.Models.Units;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,12 @@ namespace XUnitTests
 
             Assert.Equal(e1, p1.HealthPoints);
             Assert.Equal(e2, p2.HealthPoints);
+        }
+        [Fact]
+        public void SlapLocallyTest()
+        {
+            //var player1 = new GameController();
+
         }
     }
 }

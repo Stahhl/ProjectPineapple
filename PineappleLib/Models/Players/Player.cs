@@ -4,30 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PineappleLib.Models.Units;
-using PineappleLib.Models.Controllers;
+using PineappleLib.Controllers;
 using PineappleLib.General.Data;
 using System.Runtime.Serialization;
 using PineappleLib.Serialization;
+using PineappleLib.Enums;
 
 namespace PineappleLib.Models.Players
 {
     [Serializable]
     public class Player
     {
-        public Player(PlayerController pc)
+        public Player(PlayerType playerType)
         {
             Units = new List<Unit>();
 
-            PlayerController = pc;
-
-            Name = "Player_" + PineappleRandom.GetRandomOfDigits(4);
+            PlayerType = playerType;
+            Name = PlayerType.ToString() + "_" + PineappleRandom.GetRandomOfDigits(4);
 
             Units.Add(new Unit());
         }
 
-        [NonSerialized]
-        public readonly PlayerController PlayerController;
-
+        public PlayerType PlayerType { get; private set; }
         public string Name { get; private set; }
         public List<Unit> Units { get; private set; }
     }

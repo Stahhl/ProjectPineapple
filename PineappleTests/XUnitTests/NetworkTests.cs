@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
-using PineappleLib.Models.Controllers;
+using PineappleLib.Controllers;
+using PineappleLib.Models.Players;
+using PineappleLib.Enums;
 
 namespace XUnitTests
 {
@@ -15,16 +17,18 @@ namespace XUnitTests
         [Fact]
         public async Task AdjustUnitValueTest01()
         {
-            var lg = new AsyncLogger();
-            var server = new Server(stdPort);
+            //var lg = new AsyncLogger();
+            //var server = new Server();
 
-            var player1 = new PlayerController();
-            var player2 = new PlayerController();
+            //server.Start(stdPort);
 
-            player1.OnlineGame();
-            player2.OnlineGame();
+            //var player1 = new Player(PlayerType.PLAYER);
+            //var player2 = new GameController();
 
-            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+            //player1.StartOnline();
+            //player2.StartOnline();
+
+            //Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
         }
     }
 }

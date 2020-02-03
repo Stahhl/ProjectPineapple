@@ -8,6 +8,7 @@ using PineappleLib.Enums;
 using System.Net.Sockets;
 using PineappleLib.Networking.Servers;
 using PineappleLib.Networking.Clients;
+using static PineappleLib.General.Data.Values;
 
 namespace PineappleLib.Networking
 {
@@ -93,7 +94,7 @@ namespace PineappleLib.Networking
             {
                 var client = clientQueue.Dequeue();
 
-                for (int i = 1; i <= Server.MaxPlayers; i++)
+                for (int i = 0; i <= serverMaxPlayers; i++)
                 {
                     if (Server.Clients[i] == null)
                     {

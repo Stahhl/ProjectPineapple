@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PineappleLib.Enums;
 using PineappleLib.Models.Players;
-using PineappleLib.Models.Controllers;
+using PineappleLib.Controllers;
 using PineappleLib.Serialization;
 
 namespace PineappleLib.Networking.Clients
@@ -15,7 +15,7 @@ namespace PineappleLib.Networking.Clients
         public ClientSender(Client client)
         {
             this.client = client;
-            this.serializer = client.Player.PlayerController.Serializer;
+            this.serializer = client.Serializer;
         }
 
         private Client client;

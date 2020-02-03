@@ -10,7 +10,8 @@ using System.Threading;
 using PineappleLib.Logging;
 using static PineappleLib.General.Data.Values;
 using PineappleLib.Models.Players;
-using PineappleLib.Models.Controllers;
+using PineappleLib.Controllers;
+using PineappleLib.Enums;
 
 namespace XUnitTests
 {
@@ -50,22 +51,15 @@ namespace XUnitTests
 
             server.Start(stdPort);
 
-            var pC = new PlayerController();
+            var player = new Player(PlayerType.PLAYER);
 
-            pC.GoOnline();
+            var game = new GameController(player);
 
-            //Task task = Task.Run(() => lg.WaitForConnections(server, 1));
+            game.StartOnline();
 
-            //task.Wait();
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnectionsServer(server, 1)));
 
-            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnections(server, 1)));
-
-            //Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions(3000)));
-
-            var localPlayer = pC.Player;
-            var onlinePlayer = server.Clients[1].Player;
-
-            Assert.Equal(localPlayer.Name, onlinePlayer.Name);
+            Assert.Equal(player.Name, server.Clients[0].Player.Name);
 
             server.Stop();
         }
@@ -102,21 +96,25 @@ namespace XUnitTests
 
             server.Start(stdPort);
 
-            var player1 = new PlayerController();
-            var player2 = new PlayerController();
+            var player1 = new Player(PlayerType.PLAYER);
+            var player2 = new Player(PlayerType.PLAYER);
 
-            player1.GoOnline();
-            player2.GoOnline();
+            var game1 = new GameController(player1);
+            var game2 = new GameController(player2);
 
-            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnections(server, 2)));
-            var player1Copy = server.Clients[1].Player;
-            var player2Copy = server.Clients[2].Player;
+            game1.StartOnline();
+            game2.StartOnline();
 
-            var e1 = player1.Player.Name;
-            var e2 = player2.Player.Name;
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnectionsServer(server, 2)));
 
-            var a1 = server.Clients[1].Player.Name;
-            var a2 = server.Clients[2].Player.Name;
+            var player1Copy = server.Clients[0].Player;
+            var player2Copy = server.Clients[1].Player;
+
+            var e1 = player1.Name;
+            var e2 = player2.Name;
+
+            var a1 = server.Clients[0].Player.Name;
+            var a2 = server.Clients[1].Player.Name;
 
             Assert.Equal(e1, a1);
             Assert.Equal(e2, a2);

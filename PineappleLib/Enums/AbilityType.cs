@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace PineappleLib.Enums
 {
-    public enum PacketType
+    public enum AbilityType
     {
-        Welcome = 0, //Server welcomes client assigns id
-        WelcomeReceived, //Client responds it let into game
-        CreateLobby,
+        NULL,
+        ATTACK,
+        SPELL,
     }
 }

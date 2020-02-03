@@ -11,8 +11,12 @@ namespace PineappleLib.General.Data
         //Game
         public const int BaseHealthPoints = 100;
         public const int BaseActionPoints = 12;
+        public const int BaseAbilityAmount = 10;
 
         //Backend
+        public const int serverMaxLobbys = 5; //Starts at 0
+        public const int serverMaxPlayers = 25; //Starts at 0
+        public const int lobbyMaxPlayers = 5; //Starts at 0
         public const int dataBufferSize = 4096; //4MB
         public const int stdPort = 55555;
         public const string stdIp = "127.0.0.1";
