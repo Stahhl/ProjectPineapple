@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using PineappleLib.Networking;
 
 namespace PineappleLib.Models.Controllers
 {
@@ -17,6 +18,7 @@ namespace PineappleLib.Models.Controllers
         public PlayerController()
         {
             Player = new Player(this);
+            Serializer = new PineappleSerializer();
         }
 
         public Player Player { get; private set; }
@@ -30,7 +32,6 @@ namespace PineappleLib.Models.Controllers
             if (Client != null)
                 PineappleLogger.HandleException(new SingletonException(), true);
 
-            Serializer = new PineappleSerializer();
             Client = new Client(this);
         }
         public void OfflineGame()

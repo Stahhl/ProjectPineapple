@@ -9,27 +9,22 @@ using System.Threading;
 using PineappleLib.Enums;
 using static PineappleLib.Logging.PineappleLogger;
 using static PineappleLib.General.Data.Values;
+using PineappleLib.Networking.Servers;
 
-namespace PineappleLib.Networking.Servers
+namespace PineappleLib.Networking.Loopers
 {
-    public class ServerLogic
+    public abstract class _Looper
     {
-        public ServerLogic(Server server)
-        {
-            this.server = server;
-
-            Start();
-        }
+        protected string type;
 
         public bool IsRunning { get; private set; }
 
-        private Server server;
         private Task loop;
 
-        private async void Start()
+        public virtual async void Start()
         {
             if (IsRunning == true)
-                HandleException(new ServerException(), true, "Trying to start server that is already running!");
+                HandleException(new ServerException(), true, $"Trying to start a {type} that is already running!");
 
             IsRunning = true;
 
@@ -46,22 +41,22 @@ namespace PineappleLib.Networking.Servers
             finally
             {
                 //CLEANUP
-                PineappleLog(LogType.WARNING, "Stopping Server!");
+                PineappleLog(LogType.WARNING, $"Stopping {type}");
             }
         }
 
-        internal void Stop()
+        public virtual void Stop()
         {
             if (IsRunning == false)
-                HandleException(new ServerException(), true, "Trying to stop a server that is already not running");
+                HandleException(new ServerException(), true, $"Trying to stop a {type} that is already not running");
 
 
             IsRunning = false;
         }
 
-        private void Loop()
+        public virtual void Loop()
         {
-            PineappleLog(LogType.INFO, "Starting Server Loop");
+            PineappleLog(LogType.INFO, $"Starting {type} Loop");
             var nextLoop = DateTime.Now;
 
             while(IsRunning)
@@ -80,9 +75,9 @@ namespace PineappleLib.Networking.Servers
             }
         }
 
-        private void Update()
+        public virtual void Update()
         {
-            ThreadManager.UpdateMain();
+            throw new NotImplementedException();
         }
     }
 }

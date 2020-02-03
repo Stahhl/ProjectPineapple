@@ -20,15 +20,21 @@ namespace XUnitTests
         public async Task StartServerTest()
         {
             var lg = new AsyncLogger();
-            var server = new Server(00000);
+            var server = new Server();
+
+            server.Start(00000);
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+
+            server.Stop();
         }
         [Fact]
         public async Task StartStopServerTest()
         {
             var lg = new AsyncLogger();
-            var server = new Server(00001);
+            var server = new Server();
+
+            server.Start(00001);
 
             Thread.Sleep(100);
 
@@ -40,27 +46,41 @@ namespace XUnitTests
         public async Task ConnectToServerTest()
         {
             var lg = new AsyncLogger();
-            var server = new Server(stdPort);
+            var server = new Server();
+
+            server.Start(stdPort);
 
             var pC = new PlayerController();
 
-            pC.OnlineGame();
+            pC.GoOnline();
 
-            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+            //Task task = Task.Run(() => lg.WaitForConnections(server, 1));
+
+            //task.Wait();
+
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnections(server, 1)));
+
+            //Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions(3000)));
 
             var localPlayer = pC.Player;
             var onlinePlayer = server.Clients[1].Player;
 
             Assert.Equal(localPlayer.Name, onlinePlayer.Name);
+
+            server.Stop();
         }
         [Fact]
         public async Task MultipleServerTest_Pass()
         {
             var lg = new AsyncLogger();
 
-            var s1 = new Server(11111);
-            var s2 = new Server(22222);
-            var s3 = new Server(33333);
+            var s1 = new Server();
+            var s2 = new Server();
+            var s3 = new Server();
+
+            s1.Start(11111);
+            s1.Start(22222);
+            s1.Start(33333);
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
         }
@@ -69,36 +89,39 @@ namespace XUnitTests
         {
             var lg = new AsyncLogger();
 
-            var t1 = Task.Run(() => new Server(44444));
-            var t2 = Task.Run(() => new Server(44444));
+            var t1 = Task.Run(() => new Server().Start(44444));
+            var t2 = Task.Run(() => new Server().Start(44444));
 
-            Assert.NotNull(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+            Assert.NotNull(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions(3000)));
         }
         [Fact]
         public async Task ConnectTwoPlayersTest()
         {
             var lg = new AsyncLogger();
-            var server = new Server(stdPort);
+            var server = new Server();
 
-            var player1 = new PlayerController().Player;
-            var player2 = new PlayerController().Player;
+            server.Start(stdPort);
 
-            player1.pC.OnlineGame();
-            player2.pC.OnlineGame();
+            var player1 = new PlayerController();
+            var player2 = new PlayerController();
 
-            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+            player1.GoOnline();
+            player2.GoOnline();
 
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForConnections(server, 2)));
             var player1Copy = server.Clients[1].Player;
             var player2Copy = server.Clients[2].Player;
 
-            var e1 = player1.Name;
-            var e2 = player2.Name;
+            var e1 = player1.Player.Name;
+            var e2 = player2.Player.Name;
 
             var a1 = server.Clients[1].Player.Name;
             var a2 = server.Clients[2].Player.Name;
 
             Assert.Equal(e1, a1);
             Assert.Equal(e2, a2);
+
+            server.Stop();
         }
     }
 }

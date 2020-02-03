@@ -19,16 +19,8 @@ namespace PineappleLib.Networking.Servers
         private Server server;
         private const string type = "[Server]";
 
-        //public void WelcomeReceived(int clientId, Packet packet)
-        //{
-        //    ClientIdCheck(clientId, packet.ReadInt());
-
-        //    string _username = packet.ReadString();
-        //}
         public void WelcomeReceived(int clientId, Packet packet)
         {
-            //ClientIdCheck(clientId, packet.ReadInt());
-
             var client = server.Clients[clientId];
             var clientPlayer = (Player)server.Serializer.Deserialize(packet.ReadBytes(packet.UnreadLength()));
 

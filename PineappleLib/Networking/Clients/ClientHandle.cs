@@ -23,6 +23,7 @@ namespace PineappleLib.Networking.Clients
             string msg = packet.ReadString();
             int id = packet.ReadInt();
 
+            client.IsConnected = true;
             client.Id = id;
 
             PineappleLogger.PineappleLog(LogType.INFO, $"{type} I received welcome from server my new ID is: {client.Id}, Message: {msg}");
