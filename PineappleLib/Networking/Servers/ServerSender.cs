@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using PineappleLib.Enums;
 using PineappleLib.Networking.Clients;
 using static PineappleLib.General.Data.Values;
+using PineappleLib.Networking.Lobbys;
 
 namespace PineappleLib.Networking.Servers
 {
@@ -57,6 +58,26 @@ namespace PineappleLib.Networking.Servers
             //{
             //    if (i != exceptClient)
             //        server.Clients[i].Tcp.SendData(packet);
+            //}
+        }
+        private void SendTcpDataToAllInLobby(Lobby lobby, Packet packet)
+        {
+            //TODO foreach in lobby
+            throw new NotImplementedException();
+            //packet.WriteLength();
+            //for (int i = 1; i <= lobbyMaxPlayers; i++)
+            //{
+            //    server.Clients[i].Tcp.SendData(packet);
+            //}
+        }
+        private void SendTcpDataToAllInLobbyExceptOne(int exept, Lobby lobby, Packet packet)
+        {
+            //TODO foreach in lobby
+            throw new NotImplementedException();
+            //packet.WriteLength();
+            //for (int i = 1; i <= lobbyMaxPlayers; i++)
+            //{
+            //    server.Clients[i].Tcp.SendData(packet);
             //}
         }
     }

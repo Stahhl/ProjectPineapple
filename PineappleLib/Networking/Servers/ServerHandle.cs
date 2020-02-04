@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PineappleLib.General.Exceptions;
 using PineappleLib.Logging;
 using PineappleLib.Models.Players;
+using PineappleLib.Networking.Clients;
 using PineappleLib.Serialization;
 
 namespace PineappleLib.Networking.Servers
@@ -16,19 +17,35 @@ namespace PineappleLib.Networking.Servers
         {
             this.server = server;
             this.serializer = server.Serializer;
+            this.serverHelper = server.ServerHelper;
         }
 
         private Server server;
+        private ServerHelper serverHelper;
         private PineappleSerializer serializer;
         private const string type = "[Server]";
 
         public void WelcomeReceived(int clientId, Packet packet)
         {
-            var client = server.Clients[clientId];
-            var clientPlayer = (Player)serializer.Deserialize(packet.ReadBytes(packet.UnreadLength()));
+            Client client = server.Clients[clientId];
+            Player clientPlayer = (Player)serializer.Deserialize(packet.ReadBytes(packet.UnreadLength()));
 
             client.IsConnected = true;
             client.AssignPlayerToClient(clientPlayer);
+        }
+        public void CreateLobby(int clientId, Packet packet)
+        {
+            string password = packet.ReadString();
+            bool join = packet.ReadBool();
+
+            bool result1 = serverHelper.CreateLobby(clientId, password, join);
+        }
+        public void JoinLobby(int clientId, Packet packet)
+        {
+            int lobbyId = packet.ReadInt();
+            string password = packet.ReadString();
+
+            bool result = serverHelper.JoinLobby(clientId, lobbyId, password);
         }
         public void ClientIdCheck(int expected, int actual)
         {

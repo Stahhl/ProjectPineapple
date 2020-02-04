@@ -10,6 +10,8 @@ namespace PineappleLib.Enums
     {
         Welcome = 0, //Server welcomes client assigns id
         WelcomeReceived, //Client responds it let into game
+
         CreateLobby,
+        JoinLobby,
     }
 }

@@ -16,8 +16,9 @@ namespace PineappleLib.Networking.Servers
             Handlers = new Dictionary<int, PacketHandler>()
             {
                 {(int)PacketType.WelcomeReceived, serverHandle.WelcomeReceived },
-                //{(int)PacketType.PlayerFromClient, serverHandle.PlayerFromClient }
 
+                {(int)PacketType.CreateLobby, serverHandle.CreateLobby },
+                {(int)PacketType.JoinLobby, serverHandle.JoinLobby },
             };
         }
 

@@ -21,9 +21,11 @@ namespace PineappleLib.Networking.Servers
     {
         public Server()
         {
-            Serializer = new PineappleSerializer();
-
             Clients = new Dictionary<int, Client>();
+            Lobbys = new Dictionary<int, Lobby>();
+
+            Serializer = new PineappleSerializer();
+            ServerHelper = new ServerHelper(this);
             ServerHandlers = new ServerHandlers(this);
             ServerSender = new ServerSender(this);
             serverLooper = new ServerLooper(this);
@@ -35,6 +37,8 @@ namespace PineappleLib.Networking.Servers
         public PineappleSerializer Serializer { get; private set; }
         public ServerSender ServerSender { get; private set; }
         public ServerHandlers ServerHandlers { get; private set; }
+        public ServerHelper ServerHelper { get; private set; }
+
         public Dictionary<int, Lobby> Lobbys { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
 

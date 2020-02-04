@@ -26,7 +26,7 @@ namespace PineappleLib.Networking.Clients
             Ip = stdIp;
             Port = stdPort;
 
-            AssignPlayerToClient(gameController.Player);
+            AssignPlayerToClient(gameController.Players[0]);
 
             Serializer = new PineappleSerializer();
 

@@ -1,4 +1,6 @@
 ﻿using PineappleLib.Networking.Servers;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using static PineappleLib.General.Data.Values;
 
@@ -31,16 +33,67 @@ namespace PineappleLib.Logging
 
                 for (int i = 0; i <= serverMaxPlayers; i++)
                 {
-                    var x = server.Clients[i];
+                    var client = server.Clients[i];
 
-                    if (x != null && x.Player != null)
+                    if (client != null && client.Player != null)
                         current++;
 
                     if (current == expected)
-                    {
                         return;
-                    }
                 }
+
+                await Task.Delay(wait);
+            }
+        }
+        public async Task WaitForLobbys(Server server, int expected, int ms = 1000)
+        {
+            int time = 0;
+            int wait = 100;
+
+            while (time < ms)
+            {
+                int current = 0;
+                time += wait;
+
+                for (int i = 0; i <= serverMaxLobbys; i++)
+                {
+                    var lobby = server.Lobbys[i];
+
+                    if (lobby != null)
+                        current++;
+
+                    if (current == expected)
+                        return;
+                }
+
+                await Task.Delay(wait);
+            }
+        }
+        public async Task WaitForClientsInLobbys(Server server, Dictionary<int, int> clientsPerLobby, int ms = 1000)
+        {
+            int time = 0;
+            int wait = 0;
+
+            while(time< ms)
+            {
+                bool[] result = new bool[clientsPerLobby.Count];
+                int current = 0;
+                time += wait;
+
+                foreach (var item in clientsPerLobby)
+                {
+                    var key = item.Key;
+                    var value = item.Value;
+                    var lobby = server.Lobbys[key];
+
+                    if (lobby != null && lobby.Clients.Count == value)
+                        result[current] = true;
+
+                    current++;
+                }
+
+                if (result.All(x => x == true))
+                    return;
 
                 await Task.Delay(wait);
             }

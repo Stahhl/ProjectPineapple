@@ -36,5 +36,16 @@ namespace PineappleLib.Networking.Clients
                 SendTCPData(_packet);
             }
         }
+        public void CreateLobby(string password, bool join = true)
+        {
+            using(Packet packet = new Packet((int)PacketType.CreateLobby))
+            {
+                packet.Write(client.Id);
+                packet.Write(password);
+                packet.Write(join);
+
+                SendTCPData(packet);
+            }
+        }
     }
 }
