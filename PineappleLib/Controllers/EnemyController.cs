@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PineappleLib.Enums;
+using PineappleLib.Models.Players;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +13,10 @@ namespace PineappleLib.Controllers
         public EnemyController(GameController gameController)
         {
             GameController = gameController;
+            Player = new Player(PlayerType.NPC);
         }
 
         public GameController GameController { get; private set; }
+        public Player Player { get; private set; }
     }
 }

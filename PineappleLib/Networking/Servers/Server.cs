@@ -9,7 +9,7 @@ using PineappleLib.Networking.Clients;
 using System.Net.NetworkInformation;
 using PineappleLib.Controllers;
 using PineappleLib.Serialization;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using System.Threading;
 using PineappleLib.Networking.Loopers;
 using System.Threading.Tasks;

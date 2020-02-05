@@ -9,7 +9,8 @@ namespace PineappleLib.Enums
     public enum GameType
     {
         NULL,
-        OFFLINE,
-        ONLINE,
+        LOCAL,
+        CLIENT,
+        SERVER,
     }
 }

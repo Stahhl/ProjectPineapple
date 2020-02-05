@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using PineappleLib.Enums;
 using PineappleLib.Networking.Clients;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using PineappleLib.Networking.Lobbys;
 
 namespace PineappleLib.Networking.Servers

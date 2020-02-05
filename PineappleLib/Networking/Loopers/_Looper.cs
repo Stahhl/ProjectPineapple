@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PineappleLib.Logging;
-using PineappleLib.General.Exceptions;
 using System.Threading;
 using PineappleLib.Enums;
 using static PineappleLib.Logging.PineappleLogger;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using PineappleLib.Networking.Servers;
 
 namespace PineappleLib.Networking.Loopers
@@ -24,7 +23,7 @@ namespace PineappleLib.Networking.Loopers
         public virtual async void Start()
         {
             if (IsRunning == true)
-                HandleException(new ServerException(), true, $"Trying to start a {type} that is already running!");
+                HandleException(new Exception("_Looper - Start()"), true, $"Trying to start a {type} that is already running!");
 
             IsRunning = true;
 
@@ -48,7 +47,7 @@ namespace PineappleLib.Networking.Loopers
         public virtual void Stop()
         {
             if (IsRunning == false)
-                HandleException(new ServerException(), true, $"Trying to stop a {type} that is already not running");
+                HandleException(new Exception("_Looper - Stop()"), true, $"Trying to stop a {type} that is already not running");
 
 
             IsRunning = false;

@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Numerics;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using PineappleLib.Networking.Servers;
 
 namespace PineappleLib.Networking.Protocol

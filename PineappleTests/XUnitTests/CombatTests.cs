@@ -1,5 +1,8 @@
 ﻿using PineappleLib.Controllers;
+using PineappleLib.Enums;
+using PineappleLib.Models.Players;
 using PineappleLib.Models.Units;
+using static PineappleLib.General.Values;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,8 +32,18 @@ namespace XUnitTests
         [Fact]
         public void SlapLocallyTest()
         {
-            //var player1 = new GameController();
+            var game = new GameController(new Player(PlayerType.PLAYER));
 
+            game.StartOffline();
+
+            var attacker = game.Players[0].Units[0];
+            var defender = game.Enemies[0].Player.Units[0];
+
+            int expected = BaseHealthPoints - BaseAbilityAmount;
+
+            game.CombatController.CombatCalc(attacker, defender, attacker.Abilities[0]);
+
+            Assert.Equal(expected, defender.HealthPoints);
         }
     }
 }

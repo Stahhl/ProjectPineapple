@@ -13,21 +13,14 @@ namespace PineappleLib.Controllers
 {
     public class CombatController
     {
-        public CombatController(GameController player)
+        public CombatController(GameController game)
         {
-            this.gameController = player;
-            this.server = null;
-        }
-        public CombatController(Server server)
-        {
-            this.gameController = null;
-            this.server = server;
+            this.gameController = game;
         }
 
         private List<Unit> affectedUnits;
 
         private GameController gameController;
-        private Server server;
 
         public void CombatCalc(Unit origin, Unit affected, _Ability ability)
         {
@@ -38,13 +31,14 @@ namespace PineappleLib.Controllers
                 switch(effect)
                 {
                     case AbilityEffect.DAMAGE:
+                        DamageCalc(origin, affected, ability);
                         break;
                     default:
                         throw new NotImplementedException();
                 }
             }
 
-            if(server != null && affectedUnits.Count > 0)
+            if(gameController.GameType == GameType.SERVER && affectedUnits.Count > 0)
             {
                 //TODO send updated units to all clients
             }

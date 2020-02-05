@@ -8,7 +8,7 @@ using PineappleLib.Networking.Servers;
 using System.Threading.Tasks;
 using System.Threading;
 using PineappleLib.Logging;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using PineappleLib.Models.Players;
 using PineappleLib.Controllers;
 using PineappleLib.Enums;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PineappleLib.Enums;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 
 namespace PineappleLib.Models.Abilities
 {

@@ -1,7 +1,7 @@
 ﻿using PineappleLib.Networking.Clients;
 using System;
 using System.Net.Sockets;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
 using PineappleLib.Networking.Servers;

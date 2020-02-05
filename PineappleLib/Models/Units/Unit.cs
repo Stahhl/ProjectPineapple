@@ -5,6 +5,7 @@ using PineappleLib.Interfaces;
 using PineappleLib.General.Data;
 using System.Runtime.Serialization;
 using PineappleLib.Models.Abilities;
+using static PineappleLib.General.Values;
 
 namespace PineappleLib.Models.Units
 {
@@ -16,8 +17,8 @@ namespace PineappleLib.Models.Units
             Abilities = new List<_Ability>();
 
             Name = "Peon";
-            HealthPoints = Values.BaseHealthPoints;
-            ActionPoints = Values.BaseActionPoints;
+            HealthPoints = BaseHealthPoints;
+            ActionPoints = BaseActionPoints;
 
             Abilities.Add(new Slap());
         }

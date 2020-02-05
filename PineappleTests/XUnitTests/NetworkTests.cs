@@ -1,6 +1,6 @@
 ﻿using PineappleLib.Logging;
 using PineappleLib.Networking.Servers;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 
 namespace PineappleLib.Logging
 {
@@ -23,11 +23,16 @@ namespace PineappleLib.Logging
 
         public async Task WaitForConnectionsServer(Server server, int expected, int ms = 1000)
         {
+            var ex = PineappleLogger.ex;
+
             int time = 0;
             int wait = 100;
 
             while (time < ms)
             {
+                if (ex != PineappleLogger.ex)
+                    throw PineappleLogger.ex;
+
                 int current = 0;
                 time += wait;
 
@@ -47,11 +52,16 @@ namespace PineappleLib.Logging
         }
         public async Task WaitForLobbys(Server server, int expected, int ms = 1000)
         {
+            var ex = PineappleLogger.ex;
+
             int time = 0;
             int wait = 100;
 
             while (time < ms)
             {
+                if (ex != PineappleLogger.ex)
+                    throw PineappleLogger.ex;
+
                 int current = 0;
                 time += wait;
 
@@ -71,11 +81,16 @@ namespace PineappleLib.Logging
         }
         public async Task WaitForClientsInLobbys(Server server, Dictionary<int, int> clientsPerLobby, int ms = 1000)
         {
+            var ex = PineappleLogger.ex;
+
             int time = 0;
             int wait = 0;
 
-            while(time< ms)
+            while(time < ms)
             {
+                if (ex != PineappleLogger.ex)
+                    throw PineappleLogger.ex;
+
                 bool[] result = new bool[clientsPerLobby.Count];
                 int current = 0;
                 time += wait;

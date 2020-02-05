@@ -4,9 +4,8 @@ using System.Net;
 using System.Net.Sockets;
 using System;
 using PineappleLib.Logging;
-using PineappleLib.General.Exceptions;
 using PineappleLib.Enums;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using PineappleLib.Networking.Clients;
 
 

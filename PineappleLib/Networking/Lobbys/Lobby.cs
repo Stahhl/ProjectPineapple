@@ -1,6 +1,8 @@
 ﻿using PineappleLib.Controllers;
 using PineappleLib.Networking.Clients;
 using PineappleLib.Networking.Servers;
+using static PineappleLib.General.Values;
+using PineappleLib.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace PineappleLib.Networking.Lobbys
             Id = id;
             Password = password;
 
-            //MaxPlayers = 
+            MaxPlayers = lobbyMaxPlayers + 1;
 
             GameController = new GameController(Server);
         }
@@ -37,9 +39,11 @@ namespace PineappleLib.Networking.Lobbys
         
         public void AddClientToLobby(int clientId)
         {
-            //if()
+            if (CurrentPlayers >= MaxPlayers)
+                throw new Exception("Lobby - AddClientToLobby()");
 
             Clients.Add(Server.Clients[clientId]);
+            CurrentPlayers++;
         }
 
     }

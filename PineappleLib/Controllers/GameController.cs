@@ -18,7 +18,7 @@ namespace PineappleLib.Controllers
     {
         public GameController(Player player)
         {
-            Players = new List<Player>();
+            Setup();
 
             Server = null;
 
@@ -26,9 +26,16 @@ namespace PineappleLib.Controllers
         }
         public GameController(Server server)
         {
-            Players = new List<Player>();
+            Setup();
 
             Server = server;
+        }
+        private void Setup()
+        {
+            Players = new List<Player>();
+            Enemies = new List<EnemyController>();
+
+            CombatController = new CombatController(this);
         }
 
         public GameType GameType { get; private set; }
@@ -43,14 +50,14 @@ namespace PineappleLib.Controllers
             if (Server.Clients.Count > 0 ||  Server == null || Client != null)
                 PineappleLogger.HandleException(new Exception("GameController - StartServer()"), true);
 
-            GameType = GameType.ONLINE;
+            GameType = GameType.SERVER;
         }
         public void StartOnline(bool simulate = false)
         {
             if (Players.Count <= 0 || Server != null || Client != null)
                 PineappleLogger.HandleException(new Exception("GameController - StartOnline()"), true);
 
-            GameType = GameType.ONLINE;
+            GameType = GameType.CLIENT;
 
             if (simulate == false)
             {
@@ -64,7 +71,7 @@ namespace PineappleLib.Controllers
 
             Enemies = new List<EnemyController>();
 
-            GameType = GameType.OFFLINE;
+            GameType = GameType.LOCAL;
 
             Enemies.Add(new EnemyController(this));
         }

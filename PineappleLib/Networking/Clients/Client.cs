@@ -3,13 +3,11 @@ using System.Net.Sockets;
 using PineappleLib.Networking.Protocol;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
-using static PineappleLib.General.Data.Values;
-using static PineappleLib.General.Helpers.Disposer;
+using static PineappleLib.General.Values;
 using PineappleLib.Networking.Servers;
 using System.Collections.Generic;
 using PineappleLib.Models.Players;
 using PineappleLib.Controllers;
-using PineappleLib.General.Exceptions;
 using PineappleLib.Networking.Loopers;
 using PineappleLib.Serialization;
 
@@ -70,7 +68,7 @@ namespace PineappleLib.Networking.Clients
         public void AssignPlayerToClient(Player player)
         {
             if (this.Player != null)
-                PineappleLogger.HandleException(new SingletonException(), true);
+                PineappleLogger.HandleException(new Exception("Client - AssignPlayerToClient"), true);
 
             this.Player = player;
         }

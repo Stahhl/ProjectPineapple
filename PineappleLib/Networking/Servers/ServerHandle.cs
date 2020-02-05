@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PineappleLib.General.Exceptions;
 using PineappleLib.Logging;
 using PineappleLib.Models.Players;
 using PineappleLib.Networking.Clients;
@@ -42,15 +41,14 @@ namespace PineappleLib.Networking.Servers
         }
         public void JoinLobby(int clientId, Packet packet)
         {
-            int lobbyId = packet.ReadInt();
             string password = packet.ReadString();
+            int lobbyId = packet.ReadInt();
 
             bool result = serverHelper.JoinLobby(clientId, lobbyId, password);
         }
         public void ClientIdCheck(int expected, int actual)
         {
-            if (expected != actual)
-                PineappleLogger.HandleException(new ClientIdException(), true);
+            throw new NotImplementedException();
         }
 
     }

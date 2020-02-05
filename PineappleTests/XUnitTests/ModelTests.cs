@@ -5,6 +5,7 @@ using PineappleLib.Models.Players;
 using PineappleLib.Controllers;
 using PineappleLib.General.Data;
 using PineappleLib.Enums;
+using static PineappleLib.General.Values;
 
 namespace XUnitTests
 {
@@ -16,8 +17,8 @@ namespace XUnitTests
             var peon = new Unit();
 
             Assert.Equal("Peon", peon.Name);
-            Assert.Equal(Values.BaseHealthPoints, peon.HealthPoints);
-            Assert.Equal(Values.BaseActionPoints, peon.ActionPoints);
+            Assert.Equal(BaseHealthPoints, peon.HealthPoints);
+            Assert.Equal(BaseActionPoints, peon.ActionPoints);
         }
         [Fact]
         public void PlayerTest01()
