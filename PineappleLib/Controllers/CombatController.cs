@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using PineappleLib.Networking.Clients;
 
 namespace PineappleLib.Controllers
 {
@@ -15,14 +15,21 @@ namespace PineappleLib.Controllers
     {
         public CombatController(GameController game)
         {
-            this.gameController = game;
+            gameController = game;
         }
 
         private List<Unit> affectedUnits;
 
         private GameController gameController;
 
-        public void CombatCalc(Unit origin, Unit affected, _Ability ability)
+        public void CombatCalcRedirect(Unit origin, Unit affected, _Ability ability)
+        {
+            if (gameController.GameType == GameType.SERVER || gameController.GameType == GameType.LOCAL)
+                combatCalc(origin, affected, ability);
+            if (gameController.GameType == GameType.CLIENT)
+                gameController.Client.ClientSender.CombatCalc(origin, affected, ability);
+        }
+        private void combatCalc(Unit origin, Unit affected, _Ability ability)
         {
             affectedUnits = new List<Unit>();
 

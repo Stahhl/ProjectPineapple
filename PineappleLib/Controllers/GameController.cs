@@ -18,7 +18,7 @@ namespace PineappleLib.Controllers
     {
         public GameController(Player player)
         {
-            Setup();
+            setup();
 
             Server = null;
 
@@ -26,11 +26,11 @@ namespace PineappleLib.Controllers
         }
         public GameController(Server server)
         {
-            Setup();
+            setup();
 
             Server = server;
         }
-        private void Setup()
+        private void setup()
         {
             Players = new List<Player>();
             Enemies = new List<EnemyController>();
@@ -47,7 +47,7 @@ namespace PineappleLib.Controllers
 
         public void StartServer(bool simulate = false)
         {
-            if (Server.Clients.Count > 0 ||  Server == null || Client != null)
+            if (Server == null || Client != null)
                 PineappleLogger.HandleException(new Exception("GameController - StartServer()"), true);
 
             GameType = GameType.SERVER;

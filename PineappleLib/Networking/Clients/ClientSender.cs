@@ -7,6 +7,8 @@ using PineappleLib.Enums;
 using PineappleLib.Models.Players;
 using PineappleLib.Controllers;
 using PineappleLib.Serialization;
+using PineappleLib.Models.Units;
+using PineappleLib.Models.Abilities;
 
 namespace PineappleLib.Networking.Clients
 {
@@ -16,10 +18,13 @@ namespace PineappleLib.Networking.Clients
         {
             this.client = client;
             this.serializer = client.Serializer;
+
+            rnd = new Random();
         }
 
         private Client client;
         private PineappleSerializer serializer;
+        private Random rnd;
 
         private void SendTCPData(Packet _packet)
         {
@@ -54,6 +59,21 @@ namespace PineappleLib.Networking.Clients
                 packet.Write(client.Id);
                 packet.Write(password);
                 packet.Write(lobbyId);
+
+                SendTCPData(packet);
+            }
+        }
+        public void CombatCalc(Unit origin, Unit affected, _Ability ability)
+        {
+            string id = PacketType.CombactCalc + "_" + rnd.Next(1, 1000)+ "_" + DateTime.Now;
+            int length = 3;
+
+            using (Packet packet = new Packet((int)PacketType.CombactCalc))
+            {
+                packet.Write(client.Id);
+                packet.Write(id);
+                packet.Write(0);
+                packet.Write(serializer.Serialize(origin));
 
                 SendTCPData(packet);
             }

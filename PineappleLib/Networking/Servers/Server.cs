@@ -25,9 +25,11 @@ namespace PineappleLib.Networking.Servers
             Lobbys = new Dictionary<int, Lobby>();
 
             Serializer = new PineappleSerializer();
+
             ServerHelper = new ServerHelper(this);
             ServerHandlers = new ServerHandlers(this);
             ServerSender = new ServerSender(this);
+
             serverLooper = new ServerLooper(this);
         }
 
@@ -41,6 +43,7 @@ namespace PineappleLib.Networking.Servers
 
         public Dictionary<int, Lobby> Lobbys { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
+        public Dictionary<string, byte[][]> PacketSeries { get; private set; }
 
         private ServerLooper serverLooper;
         private TcpListener tcpListener;
@@ -88,7 +91,7 @@ namespace PineappleLib.Networking.Servers
                 serverLooper.Stop();
                 tcpListener.Stop();
 
-                Thread.Sleep(50);
+                //Thread.Sleep(50);
             }
             catch (Exception e)
             {

@@ -17,13 +17,13 @@ namespace PineappleLib.Logging
         public static readonly string fullPath = Path.Combine(path, fileName);
         private static Serilog.Core.Logger _logger;
 
-        public static void HandleException(Exception _ex, bool doThrow, string msg = null)
+        public static void HandleException(Exception _ex, bool doThrow, string msg = "")
         {
             ex = _ex;
-            PineappleLog(LogType.FATAL, msg != null ? msg : ex.ToString());
+            msg = msg != "" ? msg + ": " + _ex.ToString() : _ex.ToString();
+            PineappleLog(LogType.FATAL, msg + " : " + _ex.Message);
 
-            if (doThrow)
-                throw _ex;
+            throw _ex;
         }
         public static void PineappleLog(LogType logType, string msg)
         {

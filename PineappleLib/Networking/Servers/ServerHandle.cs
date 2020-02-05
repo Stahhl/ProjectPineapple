@@ -26,25 +26,46 @@ namespace PineappleLib.Networking.Servers
 
         public void WelcomeReceived(int clientId, Packet packet)
         {
-            Client client = server.Clients[clientId];
-            Player clientPlayer = (Player)serializer.Deserialize(packet.ReadBytes(packet.UnreadLength()));
+            try
+            {
+                Client client = server.Clients[clientId];
+                Player clientPlayer = (Player)serializer.Deserialize(packet.ReadBytes(packet.UnreadLength()));
 
-            client.IsConnected = true;
-            client.AssignPlayerToClient(clientPlayer);
+                client.IsConnected = true;
+                client.AssignPlayerToClient(clientPlayer);
+            }
+            catch (Exception ex)
+            {
+                PineappleLogger.HandleException(ex, true, "ServerHandle - WelcomeReceived()");
+            }
         }
         public void CreateLobby(int clientId, Packet packet)
         {
-            string password = packet.ReadString();
-            bool join = packet.ReadBool();
+            try
+            {
+                string password = packet.ReadString();
+                bool join = packet.ReadBool();
 
-            bool result1 = serverHelper.CreateLobby(clientId, password, join);
+                bool result1 = serverHelper.CreateLobby(clientId, password, join);
+            }
+            catch (Exception ex)
+            {
+                PineappleLogger.HandleException(ex, true, "ServerHandle - CreateLobby()");
+            }
         }
         public void JoinLobby(int clientId, Packet packet)
         {
-            string password = packet.ReadString();
-            int lobbyId = packet.ReadInt();
+            try
+            {
+                string password = packet.ReadString();
+                int lobbyId = packet.ReadInt();
 
-            bool result = serverHelper.JoinLobby(clientId, lobbyId, password);
+                bool result = serverHelper.JoinLobby(clientId, lobbyId, password);
+            }
+            catch (Exception ex)
+            {
+                PineappleLogger.HandleException(ex, true, "ServerHandle - JoinLobby()");
+            }
         }
         public void ClientIdCheck(int expected, int actual)
         {

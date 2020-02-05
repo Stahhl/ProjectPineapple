@@ -41,6 +41,11 @@ namespace PineappleLib.Networking.Servers
         }
         public bool JoinLobby(int clientId, int lobbyId, string password)
         {
+            if (server.Lobbys[0] == null)
+            {
+
+            }
+
             bool result = false;
 
             Client client = server.Clients[clientId];
@@ -53,7 +58,7 @@ namespace PineappleLib.Networking.Servers
                 lobby.Clients.Add(client);
                 result = true;
             }
-            
+
             return result;
         }
     }

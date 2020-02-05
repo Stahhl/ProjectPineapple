@@ -7,6 +7,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using PineappleLib.Logging;
+using PineappleLib.Networking.Servers;
+using System.Threading.Tasks;
 
 namespace XUnitTests
 {
@@ -41,9 +44,42 @@ namespace XUnitTests
 
             int expected = BaseHealthPoints - BaseAbilityAmount;
 
-            game.CombatController.CombatCalc(attacker, defender, attacker.Abilities[0]);
+            game.CombatController.CombatCalcRedirect(attacker, defender, attacker.Abilities[0]);
 
             Assert.Equal(expected, defender.HealthPoints);
+        }
+        [Fact]
+        public async Task SlapOnlineTest()
+        {
+            var rnd = new Random();
+            var lg = new AsyncLogger();
+            var server = new Server();
+
+            server.Start(stdPort);
+
+            var player1 = new Player(PlayerType.PLAYER);
+            var player2 = new Player(PlayerType.PLAYER);
+
+            var game1 = new GameController(player1);
+            var game2 = new GameController(player2);
+
+            game1.StartOnline();
+            game2.StartOnline();
+
+            game1.Client.ClientSender.CreateLobby(stdPwd, true);
+            game2.Client.ClientSender.JoinLobby(stdPwd);
+
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForLobbys(server, 1)));
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForClientsInLobbys(server, new Dictionary<int, int> { { 0, 2 } })));
+            //Assert.Null(await Record.ExceptionAsync(() => lg.WaitForAsyncExceptions()));
+
+            foreach (var client in server.Clients.Values)
+            {
+                if (client != null)
+                    Assert.NotNull(client.Player);
+            }
+
+            //string id = PacketType.CombactCalc + "_" + rnd.Next(1, 1000)+ "_" + DateTime.Now;
         }
     }
 }

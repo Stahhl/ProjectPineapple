@@ -3,11 +3,11 @@
 namespace PineappleLib.General
 {
     /// <summary>
-    /// Static readonly values
+    /// Static const values
     /// </summary>
-    //TODO move to a file
     public static class Values
     {
+        //TODO move to a file   
         //Game
         public const int BaseHealthPoints = 100;
         public const int BaseActionPoints = 12;

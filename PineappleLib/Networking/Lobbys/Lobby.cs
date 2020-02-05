@@ -24,6 +24,7 @@ namespace PineappleLib.Networking.Lobbys
             MaxPlayers = lobbyMaxPlayers + 1;
 
             GameController = new GameController(Server);
+            GameController.StartServer();
         }
 
         public int Id { get; private set; }

@@ -13,5 +13,7 @@ namespace PineappleLib.Enums
 
         CreateLobby,
         JoinLobby,
+
+        CombactCalc,
     }
 }
