@@ -1,6 +1,6 @@
 ﻿using PineappleLib.Logging;
 using PineappleLib.Networking.Servers;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +32,8 @@ namespace XUnitTests
 
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForLobbys(server, 1)));
             Assert.Equal(server.Lobbys[0].Password, stdPwd);
+
+            server.Stop();
         }
         [Fact]
         public async Task CreateJoinLobbyTest()
@@ -52,6 +54,29 @@ namespace XUnitTests
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForLobbys(server, 1)));
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForClientsInLobbys(server, new Dictionary<int, int> { { 0, 1 } })));
             Assert.Equal(server.Lobbys[0].Password, stdPwd);
+
+            server.Stop();
+        }
+        [Fact]
+        public async Task TwoClientsOneLobbyTest()
+        {
+            var lg = new AsyncLogger();
+            var server = new Server();
+
+            server.Start(stdPort);
+
+            var player1 = new Player(PlayerType.PLAYER);
+            var player2 = new Player(PlayerType.PLAYER);
+
+            var game1 = new GameController(player1);
+            var game2 = new GameController(player2);
+
+            game1.StartOnline();
+            game2.StartOnline();
+
+            game1.Client.ClientSender.CreateLobby(stdPwd, true);
+            //game2.Client.ClientSender.joi
+
         }
     }
 }

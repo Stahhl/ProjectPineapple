@@ -2,7 +2,6 @@
 using PineappleLib.Networking.Clients;
 using PineappleLib.Serialization;
 using PineappleLib.Logging;
-using PineappleLib.General.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

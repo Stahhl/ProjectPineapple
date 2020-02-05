@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PineappleLib.General.Data
+namespace PineappleLib.General
 {
     /// <summary>
     /// Static readonly values
@@ -20,7 +20,7 @@ namespace PineappleLib.General.Data
         public const int dataBufferSize = 4096; //4MB
         public const int stdPort = 55555;
         public const string stdIp = "127.0.0.1";
-        public const string stdPwd = "-_$$_asdF!.1234";
+        public const string stdPwd = "-_$$_asd   F!.1234";
         public const int TICKS_PER_SEC = 30; // How many ticks per second
         public const float MS_PER_TICK = 1000f / TICKS_PER_SEC; // How many milliseconds per tick -> 33.3...
     }

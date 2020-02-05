@@ -1,10 +1,11 @@
-﻿using PineappleLib.Networking.Lobbys;
+﻿using PineappleLib.Networking.Clients;
+using PineappleLib.Networking.Lobbys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PineappleLib.General.Data.Values;
+using static PineappleLib.General.Values;
 
 namespace PineappleLib.Networking.Servers
 {
@@ -42,9 +43,12 @@ namespace PineappleLib.Networking.Servers
         {
             bool result = false;
 
-            var client = server.Clients[clientId];
-            var lobby = server.Lobbys[lobbyId];
+            Client client = server.Clients[clientId];
+            //Server browser is low prio just enter password in a textfield to join initially 
+            //could exist multiple lobbys with the same password... 
+            Lobby lobby = lobbyId != -1 ? server.Lobbys[lobbyId] : server.Lobbys.Select(x => x.Value).Where(x => x.Password == password).FirstOrDefault();
 
+            //TODO max players per lobby
             if (lobby.Password == password)
             {
                 lobby.Clients.Add(client);

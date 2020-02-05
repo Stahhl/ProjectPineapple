@@ -19,11 +19,17 @@ namespace PineappleLib.Networking.Lobbys
             Id = id;
             Password = password;
 
+            //MaxPlayers = 
+
             GameController = new GameController(Server);
         }
 
         public int Id { get; private set; }
         public string Password { get; private set; }
+        public bool IsOpen { get; private set; }
+
+        public int CurrentPlayers { get; private set; }
+        public int MaxPlayers { get; private set; }
 
         public Server Server { get; private set; }
         public GameController GameController { get; private set; }
@@ -31,6 +37,8 @@ namespace PineappleLib.Networking.Lobbys
         
         public void AddClientToLobby(int clientId)
         {
+            //if()
+
             Clients.Add(Server.Clients[clientId]);
         }
 

@@ -47,5 +47,16 @@ namespace PineappleLib.Networking.Clients
                 SendTCPData(packet);
             }
         }
+        public void JoinLobby(string password, int lobbyId = -1)
+        {
+            using(Packet packet = new Packet((int)PacketType.JoinLobby))
+            {
+                packet.Write(client.Id);
+                packet.Write(password);
+                packet.Write(lobbyId);
+
+                SendTCPData(packet);
+            }
+        }
     }
 }
