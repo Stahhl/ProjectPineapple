@@ -21,11 +21,11 @@ namespace PineappleLib.Logging
         {
             ex = _ex;
             msg = msg != "" ? msg + ": " + _ex.ToString() : _ex.ToString();
-            PineappleLog(LogType.FATAL, msg + " : " + _ex.Message);
+            Log(LogType.FATAL, msg + " : " + _ex.Message);
 
             throw _ex;
         }
-        public static void PineappleLog(LogType logType, string msg)
+        public static void Log(LogType logType, string msg)
         {
             if (_logger == null)
                 Setup();
@@ -33,19 +33,19 @@ namespace PineappleLib.Logging
             switch (logType)
             {
                 case LogType.INFO:
-                    Log.Information(msg);
+                    Serilog.Log.Information(msg);
                     break;
                 case LogType.DEBUG:
-                    Log.Debug(msg);
+                    Serilog.Log.Debug(msg);
                     break;
                 case LogType.WARNING:
-                    Log.Warning(msg);
+                    Serilog.Log.Warning(msg);
                     break;
                 case LogType.ERROR:
-                    Log.Error(msg);
+                    Serilog.Log.Error(msg);
                     break;
                 case LogType.FATAL:
-                    Log.Fatal(msg);
+                    Serilog.Log.Fatal(msg);
                     break;
                 //case LogType.COMBAT:
                 //    //TODO
@@ -61,8 +61,8 @@ namespace PineappleLib.Logging
         public static void CloseLog(int ms = 1000)
         {
             Thread.Sleep(ms);
-            PineappleLog(LogType.DEBUG, "Closing and flushing log!");
-            Log.CloseAndFlush();
+            Log(LogType.DEBUG, "Closing and flushing log!");
+            Serilog.Log.CloseAndFlush();
         }
         private static void Setup()
         {
@@ -72,7 +72,7 @@ namespace PineappleLib.Logging
                     .File(fullPath))
                 .CreateLogger();
 
-            Log.Logger = _logger;
+            Serilog.Log.Logger = _logger;
         }
         public static void CreateDeployLog()
         {

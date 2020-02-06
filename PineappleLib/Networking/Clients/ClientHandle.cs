@@ -20,14 +20,22 @@ namespace PineappleLib.Networking.Clients
 
         public void WelcomeFromServer(Packet packet)
         {
-            string msg = packet.ReadString();
-            int id = packet.ReadInt();
+            try
+            {
+                string msg = packet.ReadString();
+                int id = packet.ReadInt();
 
-            client.IsConnected = true;
-            client.Id = id;
+                PineappleLogger.Log(LogType.INFO, $"{type} [{client.Id}] I received welcome from server my new ID is: {id}");
 
-            PineappleLogger.PineappleLog(LogType.INFO, $"{type} I received welcome from server my new ID is: {client.Id}, Message: {msg}");
-            client.ClientSender.WelcomeReceived();
+                client.IsConnected = true;
+                client.Id = id;
+
+                client.ClientSender.WelcomeReceived();
+            }
+            catch (Exception ex)
+            {
+                PineappleLogger.HandleException(ex, true, "ClientHandle - WelcomeFromServer()");
+            }
         }
     }
 }

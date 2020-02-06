@@ -43,7 +43,6 @@ namespace PineappleLib.Networking.Servers
 
         public Dictionary<int, Lobby> Lobbys { get; private set; }
         public Dictionary<int, Client> Clients { get; private set; }
-        public Dictionary<string, byte[][]> PacketSeries { get; private set; }
 
         private ServerLooper serverLooper;
         private TcpListener tcpListener;
@@ -65,7 +64,7 @@ namespace PineappleLib.Networking.Servers
                 Port = port;
                 IsRunning = true;
 
-                PineappleLogger.PineappleLog(LogType.INFO, "Starting server...");
+                PineappleLogger.Log(LogType.INFO, "Starting server...");
                 Initialize();
 
                 serverLooper.Start();
@@ -73,7 +72,7 @@ namespace PineappleLib.Networking.Servers
                 tcpListener = new TcpListener(IPAddress.Any, Port);
                 tcpListener.Start();
                 tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-                PineappleLogger.PineappleLog(LogType.INFO, $"Server started on port {Port}.");
+                PineappleLogger.Log(LogType.INFO, $"Server started on port {Port}.");
             }
             catch (Exception e)
             {
@@ -84,14 +83,14 @@ namespace PineappleLib.Networking.Servers
         {
             try
             {
-                PineappleLogger.PineappleLog(LogType.WARNING, "Stopping server...");
+                PineappleLogger.Log(LogType.WARNING, "Stopping server...");
                 IsRunning = false;
 
                 ThreadManager.Stop();
                 serverLooper.Stop();
                 tcpListener.Stop();
 
-                //Thread.Sleep(50);
+                Thread.Sleep(50);
             }
             catch (Exception e)
             {
@@ -103,13 +102,13 @@ namespace PineappleLib.Networking.Servers
         {
             if(IsRunning == false)
             {
-                PineappleLogger.PineappleLog(LogType.WARNING, "Server - TCPConnectCallback - IsRunning == false");
+                PineappleLogger.Log(LogType.WARNING, "Server - TCPConnectCallback - IsRunning == false");
                 return;
             }
 
             TcpClient socket = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(TCPConnectCallback, null);
-            PineappleLogger.PineappleLog(LogType.INFO, $"Incoming connection from {socket.Client.RemoteEndPoint}...");
+            PineappleLogger.Log(LogType.INFO, $"Incoming connection from {socket.Client.RemoteEndPoint}...");
 
             ThreadManager.QueueClient(socket);
             //PineappleLogger.PineappleLog(LogType.WARNING, $"{_client.Client.RemoteEndPoint} failed to connect: Server full!");

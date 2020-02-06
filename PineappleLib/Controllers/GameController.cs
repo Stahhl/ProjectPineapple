@@ -62,6 +62,19 @@ namespace PineappleLib.Controllers
             if (simulate == false)
             {
                 Client = new Client(this);
+
+                int tries = 0;
+                while(Client.IsConnected == false)
+                {
+                    tries++;
+
+                    if(tries >= 10)
+                    {
+                        throw new Exception($"GameController - StartOnline()");
+                    }
+
+                    Thread.Sleep(100);
+                }
             }
         }
         public void StartOffline(bool simulate = false)

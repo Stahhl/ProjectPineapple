@@ -40,7 +40,7 @@ namespace PineappleLib.Networking.Loopers
             finally
             {
                 //CLEANUP
-                PineappleLog(LogType.WARNING, $"Stopping {type}");
+                Log(LogType.WARNING, $"Stopping {type}");
             }
         }
 
@@ -55,7 +55,7 @@ namespace PineappleLib.Networking.Loopers
 
         public virtual void Loop()
         {
-            PineappleLog(LogType.INFO, $"Starting {type} Loop");
+            //Log(LogType.INFO, $"Starting {type} Loop");
             var nextLoop = DateTime.Now;
 
             while(IsRunning)

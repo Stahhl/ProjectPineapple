@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static PineappleLib.General.Values;
+using PineappleLib.Logging;
+using PineappleLib.Enums;
 
 namespace PineappleLib.Networking.Servers
 {
@@ -14,9 +16,12 @@ namespace PineappleLib.Networking.Servers
         public ServerHelper(Server server)
         {
             this.server = server;
+            packetSeries = new Dictionary<string, byte[][]>();
         }
 
         private readonly Server server;
+        private readonly Dictionary<string, byte[][]> packetSeries;
+
 
         public bool CreateLobby(int clientId, string password, bool join)
         {
@@ -41,12 +46,10 @@ namespace PineappleLib.Networking.Servers
         }
         public bool JoinLobby(int clientId, int lobbyId, string password)
         {
-            if (server.Lobbys[0] == null)
-            {
-
-            }
-
             bool result = false;
+
+            if (server.Lobbys.All(x => x.Value == null))
+                return result;
 
             Client client = server.Clients[clientId];
             //Server browser is low prio just enter password in a textfield to join initially 
@@ -60,6 +63,12 @@ namespace PineappleLib.Networking.Servers
             }
 
             return result;
+        }
+        public bool CombatCalc(int clientId, string packetId, int length, int order, byte[] data)
+        {
+            var packet = packetSeries[packetId];
+
+            return false;
         }
     }
 }

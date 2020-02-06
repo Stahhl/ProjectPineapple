@@ -51,7 +51,7 @@ namespace PineappleLib.Networking.Clients
         private readonly bool IsServer;
         private readonly ClientLooper clientLooper;
         //
-        public int Id { get; set; }
+        public int Id { get; set; } = -1;
         public bool IsConnected { get; set; }
         //
         public string Ip { get; private set; }
@@ -80,7 +80,7 @@ namespace PineappleLib.Networking.Clients
                 Tcp.Socket.Close();
                 //udp.socket.Close();
 
-                PineappleLogger.PineappleLog(LogType.DEBUG, "Disconnected from server.");
+                PineappleLogger.Log(LogType.DEBUG, "Disconnected from server.");
             }
         }
     }//class

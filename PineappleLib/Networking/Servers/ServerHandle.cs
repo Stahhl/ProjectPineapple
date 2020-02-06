@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using PineappleLib.Logging;
 using PineappleLib.Models.Players;
@@ -33,6 +34,11 @@ namespace PineappleLib.Networking.Servers
 
                 client.IsConnected = true;
                 client.AssignPlayerToClient(clientPlayer);
+
+                if(server.Clients[clientId].Player == null)
+                {
+
+                }
             }
             catch (Exception ex)
             {
@@ -60,11 +66,38 @@ namespace PineappleLib.Networking.Servers
                 string password = packet.ReadString();
                 int lobbyId = packet.ReadInt();
 
-                bool result = serverHelper.JoinLobby(clientId, lobbyId, password);
+                //bool result = serverHelper.JoinLobby(clientId, lobbyId, password);
+
+                int tries = 0;
+                while(serverHelper.JoinLobby(clientId, lobbyId, password) == false)
+                {
+                    tries++;
+
+                    if (tries >= 3)
+                        throw new Exception("Too many tries!");
+
+                    Thread.Sleep(100);
+                }
             }
             catch (Exception ex)
             {
                 PineappleLogger.HandleException(ex, true, "ServerHandle - JoinLobby()");
+            }
+        }
+        public void CombatCalc(int clientId, Packet packet)
+        {
+            try
+            {
+                string packetId = packet.ReadString();
+                int length = packet.ReadInt();
+                int order = packet.ReadInt();
+                byte[] data = packet.ReadBytes(packet.UnreadLength());
+
+                serverHelper.CombatCalc(clientId, packetId, length, order, data);
+            }
+            catch (Exception ex)
+            {
+                PineappleLogger.HandleException(ex, true, "ServerHandle - CombatCalc()");
             }
         }
         public void ClientIdCheck(int expected, int actual)

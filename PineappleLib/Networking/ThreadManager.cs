@@ -40,7 +40,7 @@ namespace PineappleLib.Networking
         {
             if (client == null)
             {
-                PineappleLogger.PineappleLog(LogType.DEBUG, "ClientConnectQueue - Null");
+                PineappleLogger.Log(LogType.DEBUG, "ClientConnectQueue - Null");
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace PineappleLib.Networking
         {
             if (_action == null)
             {
-                PineappleLogger.PineappleLog(LogType.DEBUG, "ExecuteOnMainThread - Null");
+                PineappleLogger.Log(LogType.DEBUG, "ExecuteOnMainThread - Null");
                 return;
             }
 

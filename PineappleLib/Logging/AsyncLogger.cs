@@ -1,6 +1,8 @@
 ﻿using PineappleLib.Networking.Servers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using static PineappleLib.General.Values;
 
@@ -20,20 +22,20 @@ namespace PineappleLib.Logging
             if (ex != PineappleLogger.ex)
                 throw PineappleLogger.ex;
         }
-
         public async Task WaitForConnectionsServer(Server server, int expected, int ms = 1000)
         {
             var ex = PineappleLogger.ex;
 
             int time = 0;
             int wait = 100;
+            int current = 0;
 
             while (time < ms)
             {
                 if (ex != PineappleLogger.ex)
                     throw PineappleLogger.ex;
 
-                int current = 0;
+                current = 0;
                 time += wait;
 
                 for (int i = 0; i <= serverMaxPlayers; i++)
@@ -49,6 +51,9 @@ namespace PineappleLib.Logging
 
                 await Task.Delay(wait);
             }
+
+            if (current != expected)
+                throw new Exception("AsyncLogger - WaitForConnectionsServer()");
         }
         public async Task WaitForLobbys(Server server, int expected, int ms = 1000)
         {
@@ -56,13 +61,14 @@ namespace PineappleLib.Logging
 
             int time = 0;
             int wait = 100;
+            int current = 0;
 
             while (time < ms)
             {
                 if (ex != PineappleLogger.ex)
                     throw PineappleLogger.ex;
 
-                int current = 0;
+                current = 0;
                 time += wait;
 
                 for (int i = 0; i <= serverMaxLobbys; i++)
@@ -78,20 +84,24 @@ namespace PineappleLib.Logging
 
                 await Task.Delay(wait);
             }
+
+            if (current != expected)
+                throw new Exception("AsyncLogger - WaitForLobbys()");
         }
         public async Task WaitForClientsInLobbys(Server server, Dictionary<int, int> clientsPerLobby, int ms = 1000)
         {
             var ex = PineappleLogger.ex;
 
             int time = 0;
-            int wait = 0;
+            int wait = 100;
 
-            while(time < ms)
+            bool[] result = new bool[clientsPerLobby.Count];
+
+            while (time < ms)
             {
                 if (ex != PineappleLogger.ex)
                     throw PineappleLogger.ex;
 
-                bool[] result = new bool[clientsPerLobby.Count];
                 int current = 0;
                 time += wait;
 
@@ -108,10 +118,50 @@ namespace PineappleLib.Logging
                 }
 
                 if (result.All(x => x == true))
-                    return;
+                    break;
 
                 await Task.Delay(wait);
             }
+
+            if (result.Any(x => x == false))
+                throw new Exception("AsyncLogger - WaitForClientsInLobbys()");
+        }
+        public async Task WaitForClientValues(Server server, int ms = 1000)
+        {
+            var ex = PineappleLogger.ex;
+
+            int time = 0;
+            int wait = 100;
+
+            bool result = false;
+
+            while(time < ms)
+            {
+                if (ex != PineappleLogger.ex)
+                    throw PineappleLogger.ex;
+
+                time += wait;
+
+                result = checkClientValues(server);
+
+                if (result == true)
+                    break;
+
+                await Task.Delay(wait);
+            }
+
+            if (result == false)
+                throw new Exception("AsyncLogger - CheckClientValues()");
+        }
+        private bool checkClientValues(Server server)
+        {
+            foreach (var client in server.Clients.Values)
+            {
+                if (client != null && client.Player == null)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

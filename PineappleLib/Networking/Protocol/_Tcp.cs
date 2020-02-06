@@ -70,6 +70,7 @@ namespace PineappleLib.Networking.Protocol
             {
                 if (Socket != null)
                 {
+                    //PineappleLogger.PineappleLog(LogType.INFO, Socket.Client.LocalEndPoint.ToString() + " " + Socket.Client.RemoteEndPoint.ToString());
                     stream.BeginWrite(_packet.ToArray(), 0, _packet.Length(), null, null);
                 }
             }

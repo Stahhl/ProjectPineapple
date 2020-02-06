@@ -67,7 +67,7 @@ namespace PineappleLib.Networking.Protocol
             }
             catch (Exception _ex)
             {
-                PineappleLogger.PineappleLog(LogType.ERROR, $"Error receiving TCP data: {_ex}");
+                PineappleLogger.Log(LogType.ERROR, $"Error receiving TCP data: {_ex}");
                 //Server.Clients[id].Disconnect();
             }
         }

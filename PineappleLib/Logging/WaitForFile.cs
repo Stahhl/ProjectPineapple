@@ -31,12 +31,12 @@ namespace PineappleLib.Logging
                 {
                     if (tries > 10)
                     {
-                        PineappleLog(LogType.ERROR, $"WaitForFile - Giving up after {tries} tries");
+                        Log(LogType.ERROR, $"WaitForFile - Giving up after {tries} tries");
 
                         return false;
                     }
 
-                    PineappleLog(LogType.WARNING, $"WaitForFile - Failed to get a lock after {tries} tries");
+                    Log(LogType.WARNING, $"WaitForFile - Failed to get a lock after {tries} tries");
                     await Task.Delay(333);
                 }
                 finally
@@ -45,7 +45,7 @@ namespace PineappleLib.Logging
                 }
             }
 
-            PineappleLog(LogType.INFO, $"WaitForFile - Returning true after {tries} tries");
+            Log(LogType.INFO, $"WaitForFile - Returning true after {tries} tries");
             return true;
         }
     }

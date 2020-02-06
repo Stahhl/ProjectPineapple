@@ -19,6 +19,8 @@ namespace PineappleLib.Networking.Servers
 
                 {(int)PacketType.CreateLobby, serverHandle.CreateLobby },
                 {(int)PacketType.JoinLobby, serverHandle.JoinLobby },
+
+                {(int)PacketType.CombactCalc, serverHandle.CombatCalc },
             };
         }
 

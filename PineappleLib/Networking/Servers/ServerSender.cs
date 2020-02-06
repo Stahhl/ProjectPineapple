@@ -10,6 +10,7 @@ using PineappleLib.Enums;
 using PineappleLib.Networking.Clients;
 using static PineappleLib.General.Values;
 using PineappleLib.Networking.Lobbys;
+using PineappleLib.Logging;
 
 namespace PineappleLib.Networking.Servers
 {
@@ -21,9 +22,11 @@ namespace PineappleLib.Networking.Servers
         }
 
         private Server server;
+        private const string type = "[Server]";
 
         public void WelcomeClient(int clientId,  string msg = "Welcome to the Server!")
         {
+            PineappleLogger.Log(LogType.INFO, $"{type} Welcome Client: {clientId}");
             using (Packet packet = new Packet((int)PacketType.Welcome))
             {
                 packet.Write(msg);
@@ -35,6 +38,8 @@ namespace PineappleLib.Networking.Servers
 
         private void SendTcpData(int clientId, Packet packet)
         {
+            PineappleLogger.Log(LogType.INFO, $"{type} SendTcpData()");
+
             packet.WriteLength();
             server.Clients[clientId].Tcp.SendData(packet);
         }

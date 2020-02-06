@@ -14,7 +14,7 @@ namespace XUnitTests
         [Fact]
         public void WriteTest()
         {
-            PineappleLog(LogType.INFO, "Can write test");
+            Log(LogType.INFO, "Can write test");
         }
         [Fact]
         public void WriteReadTest()
@@ -42,7 +42,7 @@ namespace XUnitTests
 
             for (int i = 0; i < 100; i++)
             {
-                PineappleLog(LogType.INFO, $"MassWriteTest - Write {i} - {id}");
+                Log(LogType.INFO, $"MassWriteTest - Write {i} - {id}");
             }
 
             Assert.True(File.Exists(PineappleLogger.fullPath), "File.Exists");
