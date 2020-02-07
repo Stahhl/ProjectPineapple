@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using static PineappleLib.General.Values;
 using PineappleLib.Logging;
 using PineappleLib.Enums;
+using PineappleLib.Models.Units;
+using PineappleLib.Models.Abilities;
 
 namespace PineappleLib.Networking.Servers
 {
@@ -30,7 +32,7 @@ namespace PineappleLib.Networking.Servers
 
             for (int i = 0; i <= serverMaxLobbys; i++)
             {
-                if(server.Lobbys[i] == null)
+                if (server.Lobbys[i] == null)
                 {
                     server.Lobbys[i] = new Lobby(server, clientId, password);
                     result = true;
@@ -59,6 +61,7 @@ namespace PineappleLib.Networking.Servers
             if (lobby.Password == password)
             {
                 lobby.Clients.Add(client);
+                client.LobbyId = lobby.Id;
                 result = true;
             }
 
@@ -66,7 +69,35 @@ namespace PineappleLib.Networking.Servers
         }
         public bool CombatCalc(int clientId, string packetId, int length, int order, byte[] data)
         {
-            var packet = packetSeries[packetId];
+            if (packetSeries.ContainsKey(packetId) == false)
+            {
+                newPacketSeries(packetId, length);
+            }
+            if (isPacketSeriesComplete(packetId, length, order, data) == false)
+            {
+                return false;
+            }
+
+            byte[][] series = packetSeries[packetId];
+
+            Unit attacker = (Unit)server.Serializer.Deserialize(series[0]);
+            Unit defender = (Unit)server.Serializer.Deserialize(series[1]);
+            _Ability ability = (_Ability)server.Serializer.Deserialize(series[2]);
+
+            server.Lobbys[server.Clients[clientId].LobbyId].GameController.CombatController.CombatCalcRedirect(attacker, defender, ability);
+
+            return true;
+        }
+        private void newPacketSeries(string packetId, int length)
+        {
+            packetSeries.Add(packetId, new byte[length][]);
+        }
+        private bool isPacketSeriesComplete(string packetId, int length, int order, byte[] data)
+        {
+            packetSeries[packetId][order] = data;
+
+            if (packetSeries[packetId].All(x => x != null))
+                return true;
 
             return false;
         }

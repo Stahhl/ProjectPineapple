@@ -69,22 +69,14 @@ namespace XUnitTests
             game1.Client.ClientSender.CreateLobby(stdPwd, true);
             game2.Client.ClientSender.JoinLobby(stdPwd);
 
-            if (server.Clients[0] == null)
-            {
-
-            }
-
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForLobbys(server, 1)));
             Assert.Null(await Record.ExceptionAsync(() => lg.WaitForClientsInLobbys(server, new Dictionary<int, int> { { 0, 2 } })));
-            Exception x = await Record.ExceptionAsync(() => lg.WaitForClientValues(server));
-            //Assert.Null(x);
-            if (x != null)
-            {
-                //while (x != null)
-                //{
-                //    x = await Record.ExceptionAsync(() => lg.WaitForClientValues(server));
-                //}
-            }
+            Assert.Null(await Record.ExceptionAsync(() => lg.WaitForClientValues(server)));
+
+            var attacker = game2.Players[0].Units[0];
+            var defender = game1.Players[0].Units[0];
+
+            game2.CombatController.CombatCalcRedirect(attacker, defender, attacker.Abilities[0]);
         }
 
         //var attacker = game1.Players[0].Units[0];

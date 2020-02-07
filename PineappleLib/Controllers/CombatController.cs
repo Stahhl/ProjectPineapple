@@ -48,6 +48,7 @@ namespace PineappleLib.Controllers
             if(gameController.GameType == GameType.SERVER && affectedUnits.Count > 0)
             {
                 //TODO send updated units to all clients
+                throw new NotImplementedException();
             }
         }
         private void DamageCalc(Unit origin, Unit affected, _Ability ability)

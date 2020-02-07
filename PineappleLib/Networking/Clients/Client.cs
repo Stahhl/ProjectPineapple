@@ -52,6 +52,7 @@ namespace PineappleLib.Networking.Clients
         private readonly ClientLooper clientLooper;
         //
         public int Id { get; set; } = -1;
+        public int LobbyId { get; set; } = -1;
         public bool IsConnected { get; set; }
         //
         public string Ip { get; private set; }

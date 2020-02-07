@@ -10,6 +10,7 @@ using PineappleLib.Serialization;
 using PineappleLib.Models.Units;
 using PineappleLib.Models.Abilities;
 using PineappleLib.Logging;
+using static PineappleLib.General.PacketIdentity;
 
 namespace PineappleLib.Networking.Clients
 {
@@ -76,14 +77,14 @@ namespace PineappleLib.Networking.Clients
         {
             //PineappleLogger.Log(LogType.INFO, $"{type} [{client.Id}] CombatCalc()");
 
-            string id = (int)PacketType.CombactCalc + "_" + rnd.Next(1, 1000)+ "_" + DateTime.Now;
-            int len = 2;
+            string id = GetPacketId(PacketType.CombactCalc);
+            int length = 3;
 
             using (Packet packet = new Packet((int)PacketType.CombactCalc))
             {
                 packet.Write(client.Id);
                 packet.Write(id);
-                packet.Write(len);
+                packet.Write(length);
                 packet.Write(0);
                 packet.Write(serializer.Serialize(origin));
 
@@ -93,7 +94,7 @@ namespace PineappleLib.Networking.Clients
             {
                 packet.Write(client.Id);
                 packet.Write(id);
-                packet.Write(len);
+                packet.Write(length);
                 packet.Write(1);
                 packet.Write(serializer.Serialize(affected));
 
@@ -103,7 +104,7 @@ namespace PineappleLib.Networking.Clients
             {
                 packet.Write(client.Id);
                 packet.Write(id);
-                packet.Write(len);
+                packet.Write(length);
                 packet.Write(2);
                 packet.Write(serializer.Serialize(ability));
 

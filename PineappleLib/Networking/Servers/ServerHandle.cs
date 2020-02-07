@@ -34,11 +34,6 @@ namespace PineappleLib.Networking.Servers
 
                 client.IsConnected = true;
                 client.AssignPlayerToClient(clientPlayer);
-
-                if(server.Clients[clientId].Player == null)
-                {
-
-                }
             }
             catch (Exception ex)
             {
